@@ -177,8 +177,8 @@ export default function DentalPracticeSystem() {
       const patientsData = await getPatients();
       const appointmentsData = await getAppointments();
 
-      setPatients(patientsData);
-      setAppointments(appointmentsData);
+      setPatients(Array.isArray(patientsData) ? patientsData : []);
+      setAppointments(Array.isArray(appointmentsData) ? appointmentsData : []);
     } catch (error) {
       console.error("Failed to load backend data:", error);
     }
