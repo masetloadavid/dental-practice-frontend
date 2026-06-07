@@ -169,8 +169,20 @@ const simulateSendWhatsApp = async (phone, message) => {
 // ─── MAIN APP COMPONENT ───────────────────────────────────────────────────────
 export default function DentalPracticeSystem() {
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [patients, setPatients] = useState(INITIAL_PATIENTS);
-  const [appointments, setAppointments] = useState(INITIAL_APPOINTMENTS);
+  const [patients, setPatients] = useState([]);
+  const [appointments, setAppointments] = useState([]);
+  useEffect(() => {
+  async function loadData() {
+    try {
+      const patientsData = await getPatients();
+      const appointmentsData = await getAppointments();
+
+      setPatients(patientsData);
+      setAppointments(appointmentsData);
+    } catch (error) {
+      console.error("Failed to load backend data:", error);
+    }
+  }
   const [reminderLog, setReminderLog] = useState([]);
   const [calendarDate, setCalendarDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(fmt(new Date()));
