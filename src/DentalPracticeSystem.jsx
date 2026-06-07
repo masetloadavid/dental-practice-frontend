@@ -37,6 +37,13 @@ import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, PieChart, Pie, Cell
 } from "recharts";
+import {
+  getPatients,
+  getAppointments,
+  getAnalytics,
+  runReminders
+} from "./api";
+
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 const WHATSAPP_API_ENDPOINT = "/api/send-whatsapp"; // Replace with your backend URL
