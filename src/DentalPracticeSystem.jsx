@@ -47,8 +47,8 @@ import {
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 const WHATSAPP_API_ENDPOINT = "/api/send-whatsapp"; // Replace with your backend URL
-const PRACTICE_NAME = "SmileCare Dental Practice";
-const PRACTICE_PHONE = "+27 11 000 0000";
+const PRACTICE_NAME = "Love2Smile Dental Suites Practice";
+const PRACTICE_PHONE = "+27 81 740 9291";
 
 // ─── MOCK DATA ────────────────────────────────────────────────────────────────
 const generateId = () => Math.random().toString(36).substr(2, 9);
@@ -419,8 +419,8 @@ export default function DentalPracticeSystem() {
               <span style={{ fontSize: 18 }}>🦷</span>
             </div>
             <div>
-              <div style={s.logoText}>SmileCare</div>
-              <div style={s.logoSub}>Dental Practice</div>
+              <div style={s.logoText}>Love2Smile</div>
+              <div style={s.logoSub}>Dental Suites Practice</div>
             </div>
           </div>
         </div>
