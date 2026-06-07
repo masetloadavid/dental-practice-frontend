@@ -183,6 +183,9 @@ export default function DentalPracticeSystem() {
       console.error("Failed to load backend data:", error);
     }
   }
+    loadData();
+}, []);
+  
   const [reminderLog, setReminderLog] = useState([]);
   const [calendarDate, setCalendarDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(fmt(new Date()));
