@@ -310,22 +310,47 @@ export default function DentalPracticeSystem() {
   };
 
   // ── ADD PATIENT ──────────────────────────────────────────────────────────
-  const addPatient = () => {
-    if (!newPatient.name || !newPatient.phone) {
-      showNotif("Name and phone are required.", "error"); return;
-    }
-    const patient = {
-      id: generateId(), ...newPatient,
-      lastVisit: fmt(new Date()),
-      nextRecall: fmt(new Date(Date.now() + 180 * 24 * 60 * 60 * 1000)),
-      appointments: []
-    };
-    setPatients(prev => [...prev, patient]);
+  const addPatient = async () => {
+  if (!newPatient.name || !newPatient.phone) {
+    showNotif("Name and phone are required.", "error");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://dental-practice-backend-production.up.railway.app/api/patients",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newPatient),
+      }
+    );
+
+    const savedPatient = await response.json();
+
+    setPatients(prev => [...prev, savedPatient]);
+
     setShowAddPatient(false);
-    setNewPatient({ name: "", phone: "", email: "", dob: "", whatsappOptIn: false, notes: "" });
-    showNotif(`Patient ${patient.name} added successfully!`);
-    if (patient.whatsappOptIn) simulateSendWhatsApp(patient.phone, buildMessage("optIn", patient));
-  };
+
+    setNewPatient({
+      name: "",
+      phone: "",
+      email: "",
+      dob: "",
+      whatsappOptIn: false,
+      notes: "",
+    });
+
+    showNotif(`Patient ${savedPatient.name} added successfully!`);
+
+  } catch (error) {
+    console.error(error);
+    showNotif("Failed to save patient", "error");
+  }
+};
+
 
   const updateApptStatus = (id, status) => {
     setAppointments(prev => prev.map(a => a.id === id ? { ...a, status } : a));
