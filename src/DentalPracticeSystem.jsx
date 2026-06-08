@@ -223,7 +223,10 @@ setAppointments(mappedAppointments);
     loadData();
 }, []);
   
-  const [reminderLog, setReminderLog] = useState([]);
+  const [reminderLog, setReminderLog] = useState(() => {
+  const saved = localStorage.getItem("reminderLog");
+  return saved ? JSON.parse(saved) : [];
+});
   const [calendarDate, setCalendarDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(fmt(new Date()));
   const [showAddAppointment, setShowAddAppointment] = useState(false);
@@ -268,9 +271,13 @@ setAppointments(mappedAppointments);
       })),
     ];
 
-    if (logs.length > 0) {
-      setReminderLog(prev => [...logs, ...prev].slice(0, 50));
-    }
+   if (logs.length > 0) {
+  setReminderLog(prev => {
+    const updated = [...logs, ...prev];
+    localStorage.setItem("reminderLog", JSON.stringify(updated));
+    return updated.slice(0, 50);
+  });
+} 
 
     showNotif(
       result.total_sent > 0
