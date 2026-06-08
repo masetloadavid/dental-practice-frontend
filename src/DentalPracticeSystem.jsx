@@ -321,17 +321,34 @@ export default function DentalPracticeSystem() {
       "https://dental-practice-backend-production.up.railway.app/api/patients",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newPatient),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: newPatient.name,
+          phone: newPatient.phone,
+          email: newPatient.email,
+          date_of_birth: newPatient.dob,
+          notes: newPatient.notes,
+          whatsapp_opt_in: newPatient.whatsappOptIn
+        }),
       }
     );
 
-    const savedPatient = await response.json();
+    const saved = await response.json();
+
+    const savedPatient = {
+      id: saved.id || generateId(),
+      name: saved.full_name || saved.name || newPatient.name,
+      phone: saved.phone || newPatient.phone,
+      email: saved.email || newPatient.email,
+      dob: saved.date_of_birth || newPatient.dob,
+      whatsappOptIn: saved.whatsapp_opt_in ?? newPatient.whatsappOptIn,
+      notes: saved.notes || newPatient.notes,
+      lastVisit: fmt(new Date()),
+      nextRecall: fmt(new Date(Date.now() + 180 * 24 * 60 * 60 * 1000)),
+      appointments: []
+    };
 
     setPatients(prev => [...prev, savedPatient]);
-
     setShowAddPatient(false);
 
     setNewPatient({
@@ -344,12 +361,12 @@ export default function DentalPracticeSystem() {
     });
 
     showNotif(`Patient ${savedPatient.name} added successfully!`);
-
   } catch (error) {
     console.error(error);
     showNotif("Failed to save patient", "error");
   }
 };
+
 
 
   const updateApptStatus = (id, status) => {
