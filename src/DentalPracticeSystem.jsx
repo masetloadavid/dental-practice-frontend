@@ -321,14 +321,24 @@ setAppointments(mappedAppointments);
   const nextMonth = () => setCalendarDate(new Date(calYear, calMonth + 1, 1));
 
   const apptsByDate = useMemo(() => {
-    const map = {};
-    appointments.forEach(a => {
-      if (!map[a.date]) map[a.date] = [];
-      map[a.date].push(a);
-    });
-    return map;
-  }, [appointments]);
+  const map = {};
 
+  appointments.forEach(a => {
+    const dateKey = a.date || a.appointment_date;
+
+    if (!dateKey) return;
+
+    const cleanDate = String(dateKey).slice(0, 10);
+
+    if (!map[cleanDate]) map[cleanDate] = [];
+    map[cleanDate].push({
+      ...a,
+      date: cleanDate
+    });
+  });
+
+  return map;
+}, [appointments]);
   // ── ADD APPOINTMENT ──────────────────────────────────────────────────────
   const addAppointment = async () => {
   if (!newAppointment.patientId || !newAppointment.date || !newAppointment.time) {
