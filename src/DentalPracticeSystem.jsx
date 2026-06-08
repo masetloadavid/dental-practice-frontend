@@ -466,10 +466,33 @@ setAppointments(mappedAppointments);
 
 
 
-  const updateApptStatus = (id, status) => {
-    setAppointments(prev => prev.map(a => a.id === id ? { ...a, status } : a));
+  const updateApptStatus = async (id, status) => {
+  try {
+    const response = await fetch(
+      `https://dental-practice-backend-production.up.railway.app/api/appointments/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to update appointment");
+    }
+
+    setAppointments(prev =>
+      prev.map(a => a.id === id ? { ...a, status } : a)
+    );
+
     showNotif(`Appointment marked as ${status}.`);
-  };
+  } catch (error) {
+    console.error(error);
+    showNotif("Failed to update appointment status", "error");
+  }
+};
 
   const deleteAppointment = (id) => {
     setAppointments(prev => prev.filter(a => a.id !== id));
