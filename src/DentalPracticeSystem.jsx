@@ -494,10 +494,27 @@ setAppointments(mappedAppointments);
   }
 };
 
-  const deleteAppointment = (id) => {
+  const deleteAppointment = async (id) => {
+  try {
+    const response = await fetch(
+      `https://dental-practice-backend-production.up.railway.app/api/appointments/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to delete appointment");
+    }
+
     setAppointments(prev => prev.filter(a => a.id !== id));
+
     showNotif("Appointment removed.", "info");
-  };
+  } catch (error) {
+    console.error(error);
+    showNotif("Failed to delete appointment", "error");
+  }
+};
 
   // ── METRICS ──────────────────────────────────────────────────────────────
   const metrics = useMemo(() => {
