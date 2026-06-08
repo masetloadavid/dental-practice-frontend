@@ -177,8 +177,23 @@ export default function DentalPracticeSystem() {
       const patientsData = await getPatients();
       const appointmentsData = await getAppointments();
 
-      setPatients(Array.isArray(patientsData) ? patientsData : []);
-      setAppointments(Array.isArray(appointmentsData) ? appointmentsData : []);
+      const mappedPatients = Array.isArray(patientsData)
+  ? patientsData.map(p => ({
+      id: p.id,
+      name: p.name || p.full_name || "",
+      phone: p.phone || "",
+      email: p.email || "",
+      dob: p.dob || p.date_of_birth || "",
+      whatsappOptIn: p.whatsappOptIn ?? p.whatsapp_opt_in ?? false,
+      notes: p.notes || "",
+      lastVisit: p.lastVisit || p.last_visit || "",
+      nextRecall: p.nextRecall || p.next_recall || "",
+      appointments: []
+    }))
+  : [];
+
+setPatients(mappedPatients);
+setAppointments(Array.isArray(appointmentsData) ? appointmentsData : []);
     } catch (error) {
       console.error("Failed to load backend data:", error);
     }
