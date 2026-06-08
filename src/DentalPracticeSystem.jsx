@@ -193,7 +193,29 @@ export default function DentalPracticeSystem() {
   : [];
 
 setPatients(mappedPatients);
-setAppointments(Array.isArray(appointmentsData) ? appointmentsData : []);
+const mappedAppointments = Array.isArray(appointmentsData)
+  ? appointmentsData.map(a => {
+      const patient = mappedPatients.find(p => p.id == (a.patient_id || a.patientId));
+
+      return {
+        id: a.id,
+        patientId: a.patientId || a.patient_id || "",
+        patientName: a.patientName || a.patient_name || patient?.name || "",
+        date: a.date || a.appointment_date || "",
+        time: a.time || a.appointment_time || "",
+        duration: a.duration || 60,
+        type: a.type || a.appointment_type || "Check-up & Clean",
+        status: a.status || "confirmed",
+        remindersSent: {
+          week: false,
+          day: false,
+          sameDay: false
+        }
+      };
+    })
+  : [];
+
+setAppointments(mappedAppointments);
     } catch (error) {
       console.error("Failed to load backend data:", error);
     }
