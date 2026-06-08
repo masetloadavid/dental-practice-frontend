@@ -308,22 +308,72 @@ setAppointments(Array.isArray(appointmentsData) ? appointmentsData : []);
   }, [appointments]);
 
   // ── ADD APPOINTMENT ──────────────────────────────────────────────────────
-  const addAppointment = () => {
-    if (!newAppointment.patientId || !newAppointment.date || !newAppointment.time) {
-      showNotif("Please fill in all required fields.", "error"); return;
-    }
-    const patient = patients.find(p => p.id === newAppointment.patientId);
-    const appt = {
-      id: generateId(), ...newAppointment,
-      patientName: patient?.name || "",
-      remindersSent: { week: false, day: false, sameDay: false }
-    };
-    setAppointments(prev => [...prev, appt]);
-    setShowAddAppointment(false);
-    setNewAppointment({ patientId: "", date: fmt(new Date()), time: "09:00", duration: 60, type: "Check-up & Clean", status: "confirmed" });
-    showNotif(`Appointment booked for ${patient?.name}!`);
-  };
+  const addAppointment = async () => {
+  if (!newAppointment.patientId || !newAppointment.date || !newAppointment.time) {
+    showNotif("Please fill in all required fields.", "error");
+    return;
+  }
 
+  const patient = patients.find(
+    p => p.id == newAppointment.patientId
+  );
+
+  try {
+    const response = await fetch(
+      "https://dental-practice-backend-production.up.railway.app/api/appointments",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          patient_id: newAppointment.patientId,
+          appointment_date: newAppointment.date,
+          appointment_time: newAppointment.time,
+          duration: newAppointment.duration,
+          type: newAppointment.type,
+          status: newAppointment.status
+        }),
+      }
+    );
+
+    const saved = await response.json();
+
+    const appt = {
+      id: saved.id || generateId(),
+      patientId: saved.patient_id || newAppointment.patientId,
+      patientName: patient?.name || "",
+      date: saved.appointment_date || newAppointment.date,
+      time: saved.appointment_time || newAppointment.time,
+      duration: saved.duration || newAppointment.duration,
+      type: saved.type || newAppointment.type,
+      status: saved.status || newAppointment.status,
+      remindersSent: {
+        week: false,
+        day: false,
+        sameDay: false
+      }
+    };
+
+    setAppointments(prev => [...prev, appt]);
+
+    setShowAddAppointment(false);
+
+    setNewAppointment({
+      patientId: "",
+      date: fmt(new Date()),
+      time: "09:00",
+      duration: 60,
+      type: "Check-up & Clean",
+      status: "confirmed"
+    });
+
+    showNotif(`Appointment booked for ${patient?.name}!`);
+  } catch (error) {
+    console.error(error);
+    showNotif("Failed to save appointment", "error");
+  }
+};
   // ── ADD PATIENT ──────────────────────────────────────────────────────────
   const addPatient = async () => {
   if (!newPatient.name || !newPatient.phone) {
