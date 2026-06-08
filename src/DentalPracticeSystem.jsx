@@ -250,53 +250,39 @@ setAppointments(mappedAppointments);
 
   // ── REMINDER ENGINE ──────────────────────────────────────────────────────
   const checkAndSendReminders = async () => {
-    const todayStr = fmt(new Date());
-    let sent = 0;
-    const logs = [];
+  try {
+    const result = await runReminders();
 
-    for (const appt of appointments) {
-      if (appt.status === "cancelled" || appt.status === "completed") continue;
-      const patient = patients.find(p => p.id === appt.patientId);
-      if (!patient || !patient.whatsappOptIn) continue;
+    const logs = [
+      ...(result.sent || []).map(r => ({
+        time: new Date().toLocaleTimeString(),
+        type: r.type || r.reminder_type || "Reminder",
+        patient: r.patient,
+        phone: r.phone,
+      })),
+      ...(result.skipped || []).map(r => ({
+        time: new Date().toLocaleTimeString(),
+        type: "Skipped",
+        patient: r.patient,
+        reason: r.reason,
+      })),
+    ];
 
-      const daysUntil = daysBetween(todayStr, appt.date);
-      let remindersUpdated = { ...appt.remindersSent };
-
-      if (daysUntil === 7 && !appt.remindersSent.week) {
-        await simulateSendWhatsApp(patient.phone, buildMessage("week", patient, appt));
-        remindersUpdated.week = true;
-        logs.push({ time: new Date().toLocaleTimeString(), type: "1 Week", patient: patient.name, apptDate: appt.date });
-        sent++;
-      }
-      if (daysUntil === 1 && !appt.remindersSent.day) {
-        await simulateSendWhatsApp(patient.phone, buildMessage("day", patient, appt));
-        remindersUpdated.day = true;
-        logs.push({ time: new Date().toLocaleTimeString(), type: "1 Day", patient: patient.name, apptDate: appt.date });
-        sent++;
-      }
-      if (daysUntil === 0 && !appt.remindersSent.sameDay) {
-        await simulateSendWhatsApp(patient.phone, buildMessage("sameDay", patient, appt));
-        remindersUpdated.sameDay = true;
-        logs.push({ time: new Date().toLocaleTimeString(), type: "Same Day", patient: patient.name, apptDate: appt.date });
-        sent++;
-      }
-      setAppointments(prev => prev.map(a => a.id === appt.id ? { ...a, remindersSent: remindersUpdated } : a));
+    if (logs.length > 0) {
+      setReminderLog(prev => [...logs, ...prev].slice(0, 50));
     }
 
-    // 6-month recall reminders
-    for (const patient of patients) {
-      if (!patient.whatsappOptIn || !patient.nextRecall) continue;
-      const daysUntilRecall = daysBetween(todayStr, patient.nextRecall);
-      if (daysUntilRecall <= 7 && daysUntilRecall >= 0) {
-        await simulateSendWhatsApp(patient.phone, buildMessage("recall", patient));
-        logs.push({ time: new Date().toLocaleTimeString(), type: "6-Month Recall", patient: patient.name, apptDate: patient.nextRecall });
-        sent++;
-      }
-    }
-
-    if (logs.length > 0) setReminderLog(prev => [...logs, ...prev].slice(0, 50));
-    showNotif(sent > 0 ? `${sent} WhatsApp reminder(s) sent!` : "No reminders due today.", sent > 0 ? "success" : "info");
-  };
+    showNotif(
+      result.total_sent > 0
+        ? `${result.total_sent} WhatsApp reminder(s) sent!`
+        : "No reminders due today.",
+      result.total_sent > 0 ? "success" : "info"
+    );
+  } catch (error) {
+    console.error(error);
+    showNotif("Failed to run reminders", "error");
+  }
+};
 
   // ── PATIENT OPT-IN ───────────────────────────────────────────────────────
   const handleOptIn = async (patientId, optIn) => {
