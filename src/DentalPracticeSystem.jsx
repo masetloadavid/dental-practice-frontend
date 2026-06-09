@@ -950,7 +950,7 @@ setAppointments(mappedAppointments);
                             {patient.whatsappOptIn && (
                               <button style={{ ...s.btn, ...s.btnWhatsApp, padding: "5px 10px", fontSize: 11 }}
                                 onClick={async () => {
-                                  await simulateSendWhatsApp(patient.phone, buildMessage("week", patient, appt));
+                                  await runReminders();
                                   setReminderLog(prev => [{ time: new Date().toLocaleTimeString(), type: "Manual", patient: patient.name, apptDate: appt.date }, ...prev]);
                                   showNotif(`Reminder sent to ${patient.name}!`);
                                 }}>
