@@ -390,7 +390,7 @@ try {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          patient_id: newAppointment.patientId,
+          patient_id: finalPatientId,
           appointment_date: newAppointment.date,
           appointment_time: newAppointment.time,
           duration: newAppointment.duration,
