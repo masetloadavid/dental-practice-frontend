@@ -336,15 +336,52 @@ setAppointments(mappedAppointments);
   // ── ADD APPOINTMENT ──────────────────────────────────────────────────────
   const addAppointment = async () => {
   if (!newAppointment.patientId || !newAppointment.date || !newAppointment.time) {
-    showNotif("Please fill in all required fields.", "error");
+  showNotif("Please fill in all required fields.", "error");
+  return;
+}
+
+let patient = patients.find(p => p.id == newAppointment.patientId);
+let finalPatientId = newAppointment.patientId;
+
+if (newAppointment.patientId === "new") {
+  if (!newPatient.name || !newPatient.phone || !newPatient.dob) {
+    showNotif("Name, phone and date of birth are required.", "error");
     return;
   }
 
-  const patient = patients.find(
-    p => p.id == newAppointment.patientId
+  const patientResponse = await fetch(
+    "https://dental-practice-backend-production.up.railway.app/api/patients",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        full_name: newPatient.name,
+        phone: newPatient.phone,
+        email: newPatient.email,
+        date_of_birth: newPatient.dob,
+        notes: newPatient.notes,
+        whatsapp_opt_in: newPatient.whatsappOptIn
+      }),
+    }
   );
 
-  try {
+  const savedPatient = await patientResponse.json();
+
+  patient = {
+    id: savedPatient.id,
+    name: savedPatient.full_name || newPatient.name,
+    phone: savedPatient.phone || newPatient.phone,
+    email: savedPatient.email || newPatient.email,
+    dob: savedPatient.date_of_birth || newPatient.dob,
+    notes: savedPatient.notes || newPatient.notes,
+    whatsappOptIn: savedPatient.whatsapp_opt_in ?? newPatient.whatsappOptIn,
+  };
+
+  finalPatientId = savedPatient.id;
+  setPatients(prev => [patient, ...prev]);
+}
+
+try {
     const response = await fetch(
       "https://dental-practice-backend-production.up.railway.app/api/appointments",
       {
