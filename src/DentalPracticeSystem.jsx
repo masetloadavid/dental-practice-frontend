@@ -401,8 +401,8 @@ setAppointments(mappedAppointments);
 };
   // ── ADD PATIENT ──────────────────────────────────────────────────────────
   const addPatient = async () => {
-  if (!newPatient.name || !newPatient.phone) {
-    showNotif("Name and phone are required.", "error");
+  if (!newPatient.name || !newPatient.phone || !newPatient.dob) {
+    showNotif("Name, phone and date of birth are required.", "error");
     return;
   }
 
