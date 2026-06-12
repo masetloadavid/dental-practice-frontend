@@ -1168,11 +1168,41 @@ const handleSavePatientEdit = async () => {
   <div style={{ gridColumn: "1 / -1" }}>
     <label style={s.label}>New Patient Details</label>
 
-    <input style={s.input} placeholder="Full name" />
-    <input style={s.input} placeholder="Phone number" />
-    <input style={s.input} type="email" placeholder="Email" />
-    <input style={s.input} type="date" />
-    <textarea style={s.input} placeholder="Notes"></textarea>
+    <input
+  style={s.input}
+  placeholder="Full name"
+  value={newPatient.name}
+  onChange={e => setNewPatient(p => ({ ...p, name: e.target.value }))}
+/>
+
+<input
+  style={s.input}
+  placeholder="Phone number"
+  value={newPatient.phone}
+  onChange={e => setNewPatient(p => ({ ...p, phone: e.target.value }))}
+/>
+
+<input
+  style={s.input}
+  type="email"
+  placeholder="Email"
+  value={newPatient.email}
+  onChange={e => setNewPatient(p => ({ ...p, email: e.target.value }))}
+/>
+
+<input
+  style={s.input}
+  type="date"
+  value={newPatient.dob}
+  onChange={e => setNewPatient(p => ({ ...p, dob: e.target.value }))}
+/>
+
+<textarea
+  style={s.input}
+  placeholder="Notes"
+  value={newPatient.notes}
+  onChange={e => setNewPatient(p => ({ ...p, notes: e.target.value }))}
+></textarea>
   </div>
 )}
               <div>
