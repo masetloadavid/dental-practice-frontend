@@ -1276,6 +1276,31 @@ const handleSavePatientEdit = async () => {
                     <Check size={13} /> Opt In and Send Welcome
                   </button>
                 )}
+                
+               <button
+  style={{ ...s.btn, ...s.btnPrimary, flex: 1 }}
+  onClick={() =>
+    setEditPatient({
+      id: patient.id,
+      name: patient.name,
+      phone: patient.phone,
+      email: patient.email || "",
+      dob: patient.dob || "",
+      notes: patient.notes || "",
+      whatsappOptIn: patient.whatsappOptIn
+    })
+  }
+>
+  Edit Patient
+</button>
+
+<button
+  style={{ ...s.btn, ...s.btnDanger, flex: 1 }}
+  onClick={() => handleDeletePatient(patient.id)}
+>
+  Delete Patient
+</button>
+ 
                 <button style={{ ...s.btn, ...s.btnGhost }} onClick={() => setShowOptInModal(null)}>Close</button>
               </div>
             </div>
