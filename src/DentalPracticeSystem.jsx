@@ -439,6 +439,7 @@ setAppointments(mappedAppointments);
     };
 
     setPatients(prev => [savedPatient, ...prev]);
+    setPatientSearch("");
     setShowAddPatient(false);
 
     setNewPatient({
