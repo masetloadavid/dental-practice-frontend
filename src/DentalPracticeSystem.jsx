@@ -438,7 +438,7 @@ setAppointments(mappedAppointments);
       appointments: []
     };
 
-    setPatients(prev => [...prev, savedPatient]);
+    setPatients(prev => [savedPatient, ...prev]);
     setShowAddPatient(false);
 
     setNewPatient({
