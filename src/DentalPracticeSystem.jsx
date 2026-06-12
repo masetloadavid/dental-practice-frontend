@@ -1160,9 +1160,21 @@ const handleSavePatientEdit = async () => {
                 <label style={s.label}>Patient *</label>
                 <select style={s.input} value={newAppointment.patientId} onChange={e => setNewAppointment(a => ({ ...a, patientId: e.target.value }))}>
                   <option value="">Select patient...</option>
+                  <option value="new">+ Add New Patient</option>
                   {patients.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
                 </select>
               </div>
+              {newAppointment.patientId === "new" && (
+  <div style={{ gridColumn: "1 / -1" }}>
+    <label style={s.label}>New Patient Details</label>
+
+    <input style={s.input} placeholder="Full name" />
+    <input style={s.input} placeholder="Phone number" />
+    <input style={s.input} type="email" placeholder="Email" />
+    <input style={s.input} type="date" />
+    <textarea style={s.input} placeholder="Notes"></textarea>
+  </div>
+)}
               <div>
                 <label style={s.label}>Date *</label>
                 <input type="date" style={s.input} value={newAppointment.date} onChange={e => setNewAppointment(a => ({ ...a, date: e.target.value }))} />
