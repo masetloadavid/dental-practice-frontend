@@ -1363,17 +1363,19 @@ const handleSavePatientEdit = async () => {
                 
                <button
   style={{ ...s.btn, ...s.btnPrimary, flex: 1 }}
-  onClick={() =>
-    setEditPatient({
-      id: patient.id,
-      name: patient.name,
-      phone: patient.phone,
-      email: patient.email || "",
-      dob: patient.dob || "",
-      notes: patient.notes || "",
-      whatsappOptIn: patient.whatsappOptIn
-    })
-  }
+ onClick={() => {
+  setEditPatient({
+    id: patient.id,
+    name: patient.name,
+    phone: patient.phone,
+    email: patient.email || "",
+    dob: patient.dob || "",
+    notes: patient.notes || "",
+    whatsappOptIn: patient.whatsappOptIn
+  });
+
+  setShowOptInModal(null);
+}}
 >
   Edit Patient
 </button>
