@@ -1245,7 +1245,91 @@ const handleSavePatientEdit = async () => {
           </div>
         </div>
       )}
+{/* EDIT PATIENT MODAL */}
+{editPatient && (
+  <div
+    style={s.modal}
+    onClick={e => e.target === e.currentTarget && setEditPatient(null)}
+  >
+    <div style={s.modalBox}>
+      <h2 style={s.h2}>Edit Patient</h2>
 
+      <div style={s.formGrid}>
+        <div>
+          <label style={s.label}>Full Name</label>
+          <input
+            style={s.input}
+            value={editPatient.name}
+            onChange={e =>
+              setEditPatient({ ...editPatient, name: e.target.value })
+            }
+          />
+        </div>
+
+        <div>
+          <label style={s.label}>Phone</label>
+          <input
+            style={s.input}
+            value={editPatient.phone}
+            onChange={e =>
+              setEditPatient({ ...editPatient, phone: e.target.value })
+            }
+          />
+        </div>
+
+        <div>
+          <label style={s.label}>Email</label>
+          <input
+            style={s.input}
+            value={editPatient.email}
+            onChange={e =>
+              setEditPatient({ ...editPatient, email: e.target.value })
+            }
+          />
+        </div>
+
+        <div>
+          <label style={s.label}>DOB</label>
+          <input
+            style={s.input}
+            value={editPatient.dob}
+            onChange={e =>
+              setEditPatient({ ...editPatient, dob: e.target.value })
+            }
+          />
+        </div>
+
+        <div style={{ gridColumn: "1 / -1" }}>
+          <label style={s.label}>Notes</label>
+          <textarea
+            style={s.input}
+            value={editPatient.notes}
+            onChange={e =>
+              setEditPatient({ ...editPatient, notes: e.target.value })
+            }
+          />
+        </div>
+      </div>
+
+      <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
+        <button
+          style={{ ...s.btn, ...s.btnPrimary, flex: 1 }}
+          onClick={handleSavePatientEdit}
+        >
+          Save Changes
+        </button>
+
+        <button
+          style={{ ...s.btn, ...s.btnGhost }}
+          onClick={() => setEditPatient(null)}
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+   
       {/* OPT-IN MANAGE MODAL */}
       {showOptInModal && (() => {
         const patient = patients.find(p => p.id === showOptInModal);
