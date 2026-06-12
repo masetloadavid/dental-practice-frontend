@@ -232,6 +232,7 @@ setAppointments(mappedAppointments);
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [showAddPatient, setShowAddPatient] = useState(false);
   const [showOptInModal, setShowOptInModal] = useState(null);
+  const [editPatient, setEditPatient] = useState(null);
   const [patientSearch, setPatientSearch] = useState("");
   const [notification, setNotification] = useState(null);
   const [newAppointment, setNewAppointment] = useState({
