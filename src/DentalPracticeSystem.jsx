@@ -582,7 +582,68 @@ setAppointments(mappedAppointments);
     modalBox: { background: "#fff", borderRadius: 14, padding: 28, width: 500, maxWidth: "90vw", maxHeight: "85vh", overflowY: "auto" },
     tag: (on) => ({ display: "inline-flex", alignItems: "center", gap: 4, padding: "3px 10px", borderRadius: 20, fontSize: 11, fontWeight: 600, background: on ? "#dcfce7" : "#fee2e2", color: on ? "#166534" : "#991b1b" }),
   };
+  
+const handleDeletePatient = async (id) => {
+  if (!window.confirm("Delete this patient?")) return;
 
+  try {
+    await fetch(`https://dental-practice-backend-production.up.railway.app/api/patients/${id}`, {
+      method: "DELETE"
+    });
+
+    setPatients(prev => prev.filter(p => p.id !== id));
+    setEditPatient(null);
+    showNotif("Patient deleted");
+  } catch (error) {
+    console.error(error);
+    showNotif("Failed to delete patient", "error");
+  }
+};
+
+const handleSavePatientEdit = async () => {
+  try {
+    const response = await fetch(
+      `https://dental-practice-backend-production.up.railway.app/api/patients/${editPatient.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: editPatient.name,
+          phone: editPatient.phone,
+          email: editPatient.email,
+          date_of_birth: editPatient.dob,
+          notes: editPatient.notes,
+          whatsapp_opt_in: editPatient.whatsappOptIn
+        })
+      }
+    );
+
+    const updated = await response.json();
+
+    setPatients(prev =>
+      prev.map(p =>
+        p.id === editPatient.id
+          ? {
+              ...p,
+              name: updated.full_name,
+              phone: updated.phone,
+              email: updated.email,
+              dob: updated.date_of_birth,
+              notes: updated.notes,
+              whatsappOptIn: updated.whatsapp_opt_in
+            }
+          : p
+      )
+    );
+
+    setEditPatient(null);
+    showNotif("Patient updated");
+  } catch (error) {
+    console.error(error);
+    showNotif("Failed to update patient", "error");
+  }
+};
+  
   return (
     <div style={s.app}>
       {/* SIDEBAR */}
