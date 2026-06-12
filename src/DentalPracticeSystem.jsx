@@ -1160,7 +1160,7 @@ setAppointments(mappedAppointments);
               </div>
               <div>
                 <label style={s.label}>Date of Birth</label>
-                <input type="date" style={s.input} value={newPatient.dob} onChange={e => setNewPatient(p => ({ ...p, dob: e.target.value }))} />
+                <input type="date" style={s.input} required value={newPatient.dob} onChange={e => setNewPatient(p => ({ ...p, dob: e.target.value }))} />
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, paddingTop: 22 }}>
                 <input type="checkbox" id="wa-opt" checked={newPatient.whatsappOptIn} onChange={e => setNewPatient(p => ({ ...p, whatsappOptIn: e.target.checked }))} style={{ width: 16, height: 16, cursor: "pointer" }} />
