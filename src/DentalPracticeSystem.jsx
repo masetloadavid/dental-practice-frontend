@@ -294,17 +294,51 @@ setAppointments(mappedAppointments);
 
   // ── PATIENT OPT-IN ───────────────────────────────────────────────────────
   const handleOptIn = async (patientId, optIn) => {
-    const patient = patients.find(p => p.id === patientId);
-    if (!patient) return;
-    setPatients(prev => prev.map(p => p.id === patientId ? { ...p, whatsappOptIn: optIn } : p));
+  const patient = patients.find(p => p.id === patientId);
+  if (!patient) return;
+
+  try {
+    await fetch(
+      `https://dental-practice-backend-production.up.railway.app/api/patients/${patientId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          whatsapp_opt_in: optIn
+        }),
+      }
+    );
+
+    setPatients(prev =>
+      prev.map(p =>
+        p.id === patientId
+          ? { ...p, whatsappOptIn: optIn }
+          : p
+      )
+    );
+
     if (optIn) {
-      await simulateSendWhatsApp(patient.phone, buildMessage("optIn", patient));
+      await simulateSendWhatsApp(
+        patient.phone,
+        buildMessage("optIn", patient)
+      );
       showNotif(`${patient.name} opted in. Welcome message sent!`);
     } else {
-      showNotif(`${patient.name} opted out of WhatsApp reminders.`, "info");
+      showNotif(
+        `${patient.name} opted out of WhatsApp reminders.`,
+        "info"
+      );
     }
+
     setShowOptInModal(null);
-  };
+  } catch (error) {
+    console.error(error);
+    showNotif("Failed to save opt-in status", "error");
+  }
+};
+
 
   // ── CALENDAR HELPERS ─────────────────────────────────────────────────────
   const calYear = calendarDate.getFullYear();
