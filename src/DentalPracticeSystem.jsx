@@ -252,6 +252,22 @@ setAppointments(mappedAppointments);
 
   const showNotif = (msg, type = "success") => setNotification({ msg, type });
 
+  const runReminders = async () => {
+  const response = await fetch(
+    "https://dental-practice-backend-production.up.railway.app/api/reminders/run",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" }
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to run reminders");
+  }
+
+  return await response.json();
+};
+
   // ── REMINDER ENGINE ──────────────────────────────────────────────────────
   const checkAndSendReminders = async () => {
   try {
