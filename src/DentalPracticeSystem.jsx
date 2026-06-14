@@ -28,7 +28,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import {
-  Calendar, Users, Bell, BarChart2, Plus, Search, Phone,
+  Calendar, CalendarCheck, Users, Bell, BarChart2, Plus, Search, Phone,
   Check, X, ChevronLeft, ChevronRight, Clock, MessageSquare,
   TrendingUp, AlertCircle, CheckCircle, User, Trash2,
   Settings, RefreshCw, Activity
