@@ -171,6 +171,12 @@ export default function DentalPracticeSystem() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [patients, setPatients] = useState([]);
   const [appointments, setAppointments] = useState([]);
+  const [showBookingForm, setShowBookingForm] = useState(false);
+  const [bookingName, setBookingName] = useState("");
+  const [bookingPhone, setBookingPhone] = useState("");
+  const [bookingDate, setBookingDate] = useState("");
+  const [bookingTime, setBookingTime] = useState("");
+  const [paymentType, setPaymentType] = useState("Cash");
   useEffect(() => {
   async function loadData() {
     try {
