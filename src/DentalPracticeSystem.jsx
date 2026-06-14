@@ -911,12 +911,85 @@ const handleSavePatientEdit = async () => {
 
       <button
         style={{ ...s.btn, ...s.btnPrimary }}
-        onClick={() =>
-          alert("Next step: we will connect this to a public booking form")
-        }
+        onClick={() => setShowBookingForm(true)}
+        
       >
         Open Booking Form
       </button>
+      {showBookingForm && (
+  <div style={{ marginTop: 20 }}>
+    <input
+      placeholder="Full Name"
+      value={bookingName}
+      onChange={(e) => setBookingName(e.target.value)}
+    />
+
+    <br /><br />
+
+    <input
+      placeholder="Phone Number"
+      value={bookingPhone}
+      onChange={(e) => setBookingPhone(e.target.value)}
+    />
+
+    <br /><br />
+
+    <input
+      type="date"
+      value={bookingDate}
+      onChange={(e) => setBookingDate(e.target.value)}
+    />
+
+    <br /><br />
+
+    <input
+      type="time"
+      value={bookingTime}
+      onChange={(e) => setBookingTime(e.target.value)}
+    />
+
+    <br /><br />
+
+    <label>Payment Method:</label>
+    <select
+      value={paymentType}
+      onChange={(e) => setPaymentType(e.target.value)}
+    >
+      <option value="Cash">Cash</option>
+      <option value="Medical Aid">Medical Aid</option>
+    </select>
+    <br /><br />
+
+<button
+  style={{ ...s.btn, ...s.btnPrimary }}
+  onClick={async () => {
+    try {
+      const res = await fetch('/api/appointments/book-online', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          full_name: bookingName,
+          phone: bookingPhone,
+          appointment_date: bookingDate,
+          appointment_time: bookingTime,
+          payment_type: paymentType
+        })
+      });
+
+      const data = await res.json();
+      alert('Booking successful!');
+      setShowBookingForm(false);
+    } catch (err) {
+      alert('Booking failed');
+      console.error(err);
+    }
+  }}
+>
+  Submit Booking
+</button>
+  </div>
+)}
+
     </div>
   </div>
 )}
