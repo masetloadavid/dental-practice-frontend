@@ -889,6 +889,32 @@ const handleSavePatientEdit = async () => {
           </div>
         )}
 
+        {/* ONLINE BOOKING */}
+{activeTab === "onlineBooking" && (
+  <div>
+    <div style={s.header}>
+      <h1 style={s.h1}>Online Booking</h1>
+      <p>Patients can use this link to book online.</p>
+    </div>
+
+    <div style={s.card}>
+      <p><strong>Booking endpoint:</strong></p>
+      <code>/api/appointments/book-online</code>
+
+      <br /><br />
+
+      <button
+        style={{ ...s.btn, ...s.btnPrimary }}
+        onClick={() =>
+          alert("Next step: we will connect this to a public booking form")
+        }
+      >
+        Open Booking Form
+      </button>
+    </div>
+  </div>
+)}
+
         {/* CALENDAR */}
         {activeTab === "calendar" && (
           <div>
