@@ -752,6 +752,7 @@ const handleSavePatientEdit = async () => {
             { id: "calendar", icon: <Calendar size={16} />, label: "Calendar" },
             { id: "patients", icon: <Users size={16} />, label: "Patients" },
             { id: "reminders", icon: <Bell size={16} />, label: "Reminders" },
+            { id: "onlineBooking", icon: <CalendarCheck size={16} />, label: "Online Booking" },
             { id: "metrics", icon: <TrendingUp size={16} />, label: "Analytics" },
           ].map(item => (
             <div key={item.id} style={s.navItem(activeTab === item.id)} onClick={() => setActiveTab(item.id)}>
