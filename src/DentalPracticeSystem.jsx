@@ -1008,7 +1008,10 @@ const handleSavePatientEdit = async () => {
           phone: bookingPhone,
           appointment_date: bookingDate,
           appointment_time: bookingTime,
-          payment_type: paymentType
+          payment_type: paymentType,
+          medical_aid_name: medicalAidName,
+          membership_number: membershipNumber,
+          beneficiary_type: beneficiaryType
         })
       });
 
