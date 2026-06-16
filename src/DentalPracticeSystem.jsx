@@ -177,6 +177,9 @@ export default function DentalPracticeSystem() {
   const [bookingDate, setBookingDate] = useState("");
   const [bookingTime, setBookingTime] = useState("");
   const [paymentType, setPaymentType] = useState("Cash");
+  const [medicalAidName, setMedicalAidName] = useState("");
+  const [membershipNumber, setMembershipNumber] = useState("");
+  const [beneficiaryType, setBeneficiaryType] = useState("Main Member");
   useEffect(() => {
   async function loadData() {
     try {
@@ -959,6 +962,39 @@ const handleSavePatientEdit = async () => {
       <option value="Medical Aid">Medical Aid</option>
     </select>
     <br /><br />
+
+{paymentType === "Medical Aid" && (
+  <div>
+    <br />
+
+    <input
+      placeholder="Medical Aid Name"
+      value={medicalAidName}
+      onChange={(e) => setMedicalAidName(e.target.value)}
+    />
+
+    <br /><br />
+
+    <input
+      placeholder="Membership Number"
+      value={membershipNumber}
+      onChange={(e) => setMembershipNumber(e.target.value)}
+    />
+
+    <br /><br />
+
+    <label>Beneficiary Type:</label>
+    <select
+      value={beneficiaryType}
+      onChange={(e) => setBeneficiaryType(e.target.value)}
+    >
+      <option value="Main Member">Main Member</option>
+      <option value="Dependent">Dependent</option>
+    </select>
+
+    <br /><br />
+  </div>
+)}
 
 <button
   style={{ ...s.btn, ...s.btnPrimary }}
