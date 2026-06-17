@@ -1061,8 +1061,12 @@ const handleSavePatientEdit = async () => {
       });
 
       const data = await res.json();
-      alert('Booking successful!');
-      setShowBookingForm(false);
+
+const updatedAppointments = await getAppointments();
+setAppointments(updatedAppointments);
+
+alert('Booking successful!');
+setShowBookingForm(false);
     } catch (err) {
       alert('Booking failed');
       console.error(err);
