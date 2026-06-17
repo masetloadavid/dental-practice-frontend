@@ -977,6 +977,22 @@ const handleSavePatientEdit = async () => {
       onChange={(e) => setBookingTime(e.target.value)}
     />
 
+    <label>Appointment Type:</label>
+<select
+  value={appointmentType}
+  onChange={(e) => setAppointmentType(e.target.value)}
+>
+  <option value="Check-up & Clean">Check-up & Clean</option>
+  <option value="Consultation">Consultation</option>
+  <option value="Tooth Extraction">Tooth Extraction</option>
+  <option value="Filling">Filling</option>
+  <option value="Teeth Whitening">Teeth Whitening</option>
+  <option value="Braces Consultation">Braces Consultation</option>
+  <option value="Root Canal">Root Canal</option>
+</select>
+
+<br /><br />
+
     <br /><br />
 
     <label>Payment Method:</label>
@@ -1039,7 +1055,8 @@ const handleSavePatientEdit = async () => {
           payment_type: paymentType,
           medical_aid_name: medicalAidName,
           membership_number: membershipNumber,
-          beneficiary_type: beneficiaryType
+          beneficiary_type: beneficiaryType,
+          appointment_type: appointmentType
         })
       });
 
