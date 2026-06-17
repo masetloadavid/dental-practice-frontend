@@ -1000,7 +1000,7 @@ const handleSavePatientEdit = async () => {
   style={{ ...s.btn, ...s.btnPrimary }}
   onClick={async () => {
     try {
-      const res = await fetch('/api/appointments/book-online', {
+      const res = await fetch('https://dental-practice-backend-production.up.railway.app/api/appointments/book-online', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
