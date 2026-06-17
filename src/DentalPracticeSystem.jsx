@@ -180,6 +180,8 @@ export default function DentalPracticeSystem() {
   const [medicalAidName, setMedicalAidName] = useState("");
   const [membershipNumber, setMembershipNumber] = useState("");
   const [beneficiaryType, setBeneficiaryType] = useState("Main Member");
+  const [bookingEmail, setBookingEmail] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   useEffect(() => {
   async function loadData() {
     try {
