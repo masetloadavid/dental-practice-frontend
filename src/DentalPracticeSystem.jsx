@@ -182,6 +182,7 @@ export default function DentalPracticeSystem() {
   const [beneficiaryType, setBeneficiaryType] = useState("Main Member");
   const [bookingEmail, setBookingEmail] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
+  const [appointmentType, setAppointmentType] = useState("Check-up & Clean");
   useEffect(() => {
   async function loadData() {
     try {
