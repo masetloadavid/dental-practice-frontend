@@ -939,11 +939,34 @@ const handleSavePatientEdit = async () => {
 
     <br /><br />
 
-    <input
-      type="date"
-      value={bookingDate}
-      onChange={(e) => setBookingDate(e.target.value)}
-    />
+<input
+  type="email"
+  placeholder="Email Address"
+  value={bookingEmail}
+  onChange={(e) => setBookingEmail(e.target.value)}
+/>
+
+    <br /><br />
+
+<label>Date of Birth:</label>
+<br />
+
+<input
+  type="date"
+  value={dateOfBirth}
+  onChange={(e) => setDateOfBirth(e.target.value)}
+/>
+
+   <br /><br />
+
+<label>Appointment Date:</label>
+<br />
+
+<input
+  type="date"
+  value={bookingDate}
+  onChange={(e) => setBookingDate(e.target.value)}
+/>
 
     <br /><br />
 
