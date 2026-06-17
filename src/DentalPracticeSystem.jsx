@@ -1063,7 +1063,26 @@ const handleSavePatientEdit = async () => {
       const data = await res.json();
 
 const updatedAppointments = await getAppointments();
-setAppointments(updatedAppointments);
+
+const mappedAppointments = Array.isArray(updatedAppointments)
+  ? updatedAppointments.map(a => ({
+      id: a.id,
+      patientId: a.patientId || a.patient_id || "",
+      patientName: a.patientName || a.patient_name || "",
+      date: a.date || a.appointment_date || "",
+      time: a.time || a.appointment_time || "",
+      duration: a.duration || 60,
+      type: a.type || a.appointment_type || "Check-up & Clean",
+      status: a.status || "confirmed",
+      remindersSent: {
+        week: false,
+        day: false,
+        sameDay: false
+      }
+    }))
+  : [];
+
+setAppointments(mappedAppointments);
 
 alert('Booking successful!');
 setShowBookingForm(false);
