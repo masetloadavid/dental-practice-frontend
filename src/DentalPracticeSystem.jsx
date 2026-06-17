@@ -1031,6 +1031,8 @@ const handleSavePatientEdit = async () => {
         body: JSON.stringify({
           full_name: bookingName,
           phone: bookingPhone,
+          email: bookingEmail,
+          date_of_birth: dateOfBirth,
           appointment_date: bookingDate,
           appointment_time: bookingTime,
           payment_type: paymentType,
