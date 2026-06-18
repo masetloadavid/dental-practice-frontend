@@ -745,6 +745,21 @@ const handleSavePatientEdit = async () => {
   
   return (
     <div style={s.app}>
+      {notification && (
+  <div
+    style={{
+      backgroundColor: notification.type === "success" ? "#d4edda" : "#f8d7da",
+      color: notification.type === "success" ? "#155724" : "#721c24",
+      padding: "12px",
+      margin: "10px 0",
+      borderRadius: "8px",
+      fontWeight: "bold"
+    }}
+  >
+    {notification.message}
+  </div>
+)}
+
       {/* SIDEBAR */}
       <aside style={s.sidebar}>
         <div style={s.logo}>
