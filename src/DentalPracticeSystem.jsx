@@ -1085,6 +1085,17 @@ const mappedAppointments = Array.isArray(updatedAppointments)
 setAppointments(mappedAppointments);
 
 alert('Booking successful!');
+setBookingName("");
+setBookingPhone("");
+setBookingEmail("");
+setDateOfBirth("");
+setBookingDate("");
+setBookingTime("");
+setPaymentType("Cash");
+setMedicalAidName("");
+setMembershipNumber("");
+setBeneficiaryType("Main Member");
+setAppointmentType("Check-up & Clean");      
 setShowBookingForm(false);
     } catch (err) {
       alert('Booking failed');
