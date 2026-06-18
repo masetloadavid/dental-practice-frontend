@@ -1222,6 +1222,28 @@ setShowBookingForm(false);
                           <div style={{ fontSize: 12, color: "#64748b", marginTop: 3 }}>{appt.time} · {appt.duration} min · {appt.type}</div>
                         </div>
                         <span style={s.badge(appt.status)}>{appt.status}</span>
+                        {appt.reminderStatus && (
+  <div style={{
+    marginTop: 6,
+    fontSize: 12,
+    padding: "4px 8px",
+    borderRadius: 12,
+    background:
+      appt.reminderStatus === "sent"
+        ? "#dcfce7"
+        : appt.reminderStatus === "failed"
+        ? "#fee2e2"
+        : "#fef3c7",
+    color:
+      appt.reminderStatus === "sent"
+        ? "#166534"
+        : appt.reminderStatus === "failed"
+        ? "#991b1b"
+        : "#92400e"
+  }}>
+    Reminder: {appt.reminderStatus}
+  </div>
+)} 
                       </div>
                       <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
                         {appt.status !== "completed" && (
