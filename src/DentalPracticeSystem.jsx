@@ -1076,6 +1076,24 @@ const handleSavePatientEdit = async () => {
       });
 
       const data = await res.json();
+      const updatedPatients = await getPatients();
+
+const mappedPatients = Array.isArray(updatedPatients)
+  ? updatedPatients.map(p => ({
+      id: p.id,
+      name: p.name || p.full_name || "",
+      phone: p.phone || "",
+      email: p.email || "",
+      dob: p.dob || p.date_of_birth || "",
+      whatsappOptIn: p.whatsappOptIn ?? p.whatsapp_opt_in ?? false,
+      notes: p.notes || "",
+      lastVisit: p.last_visit || "",
+      nextRecall: p.next_recall || "",
+      appointments: []
+    }))
+  : [];
+
+setPatients(mappedPatients);
 
 const updatedAppointments = await getAppointments();
 
