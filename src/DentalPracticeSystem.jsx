@@ -1084,7 +1084,10 @@ const mappedAppointments = Array.isArray(updatedAppointments)
 
 setAppointments(mappedAppointments);
 
-alert('Booking successful!');
+setNotification({
+  type: "success",
+  message: "Booking successful!"
+});
 setBookingName("");
 setBookingPhone("");
 setBookingEmail("");
@@ -1098,7 +1101,10 @@ setBeneficiaryType("Main Member");
 setAppointmentType("Check-up & Clean");      
 setShowBookingForm(false);
     } catch (err) {
-      alert('Booking failed');
+      setNotification({
+  type: "error",
+  message: "Booking failed!"
+});
       console.error(err);
     }
   }}
