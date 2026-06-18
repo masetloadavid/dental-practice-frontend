@@ -222,7 +222,8 @@ const mappedAppointments = Array.isArray(appointmentsData)
           week: false,
           day: false,
           sameDay: false
-        }
+        },
+        reminderStatus: "pending"
       };
     })
   : [];
@@ -477,7 +478,8 @@ try {
         week: false,
         day: false,
         sameDay: false
-      }
+      },
+      reminderStatus: "pending"
     };
 
     setAppointments(prev => [...prev, appt]);
@@ -1111,7 +1113,8 @@ const mappedAppointments = Array.isArray(updatedAppointments)
         week: false,
         day: false,
         sameDay: false
-      }
+      },
+      reminderStatus: "pending"
     }))
   : [];
 
