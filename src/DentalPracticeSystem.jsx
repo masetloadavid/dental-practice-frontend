@@ -1203,6 +1203,17 @@ setShowBookingForm(false);
               <button style={{ ...s.btn, ...s.btnPrimary }} onClick={() => setShowAddAppointment(true)}>
                 <Plus size={14} /> New Appointment
               </button>
+
+              <button
+  style={{
+    ...s.btn,
+    ...s.btnPrimary,
+    marginLeft: 8
+  }}
+  onClick={sendReviewRequests}
+>
+  Send Review Requests
+</button>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "340px 1fr", gap: 20 }}>
               <div style={s.card}>
