@@ -625,6 +625,27 @@ try {
   }
 };
 
+  const sendReviewRequests = () => {
+  if (reviewQueue.length === 0) {
+    showNotif("No review requests to send", "info");
+    return;
+  }
+
+  reviewQueue.forEach(appt => {
+    console.log("Send review request to:", appt.patientName);
+  });
+
+  setAppointments(prev =>
+    prev.map(a =>
+      a.reviewStatus === "ready_to_send"
+        ? { ...a, reviewStatus: "sent" }
+        : a
+    )
+  );
+
+  showNotif(`${reviewQueue.length} review requests sent`, "success");
+};
+
   // ── METRICS ──────────────────────────────────────────────────────────────
   const reviewQueue = appointments.filter(
   a =>
