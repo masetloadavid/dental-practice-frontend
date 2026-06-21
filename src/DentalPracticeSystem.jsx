@@ -626,6 +626,12 @@ try {
 };
 
   // ── METRICS ──────────────────────────────────────────────────────────────
+  const reviewQueue = appointments.filter(
+  a =>
+    a.status === "completed" &&
+    a.reviewStatus === "ready_to_send"
+);
+  
   const metrics = useMemo(() => {
     const total = appointments.length;
     const confirmed = appointments.filter(a => a.status === "confirmed").length;
