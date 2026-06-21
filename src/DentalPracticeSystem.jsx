@@ -1865,8 +1865,7 @@ setShowBookingForm(false);
           </div>
         );
       })()}
-    </div>
-    {showReviewPopup && reviewPatient && (
+     {showReviewPopup && reviewPatient && (
   <div style={{
     position: "fixed",
     top: 0,
@@ -1913,7 +1912,8 @@ setShowBookingForm(false);
         😞 Negative
       </button>
     </div>
-  </div>
+  </div> 
+    </div>   
 )}
   );
 }
