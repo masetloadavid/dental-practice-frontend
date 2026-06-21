@@ -223,7 +223,8 @@ const mappedAppointments = Array.isArray(appointmentsData)
           day: false,
           sameDay: false
         },
-        reminderStatus: "pending"
+        reminderStatus: "pending",
+        reviewStatus: "not_sent"
       };
     })
   : [];
@@ -479,7 +480,8 @@ try {
         day: false,
         sameDay: false
       },
-      reminderStatus: "pending"
+      reminderStatus: "pending",
+      reviewStatus: "not_sent"
     };
 
     setAppointments(prev => [...prev, appt]);
@@ -1114,7 +1116,8 @@ const mappedAppointments = Array.isArray(updatedAppointments)
         day: false,
         sameDay: false
       },
-      reminderStatus: "pending"
+      reminderStatus: "pending",
+      reviewStatus: "not_sent"
     }))
   : [];
 
