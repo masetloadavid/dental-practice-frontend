@@ -582,8 +582,19 @@ try {
     }
 
     setAppointments(prev =>
-      prev.map(a => a.id === id ? { ...a, status } : a)
-    );
+  prev.map(a =>
+    a.id === id
+      ? {
+          ...a,
+          status,
+          reviewStatus:
+            status === "completed"
+              ? "ready_to_send"
+              : a.reviewStatus
+        }
+      : a
+  )
+);
 
     showNotif(`Appointment marked as ${status}.`);
   } catch (error) {
