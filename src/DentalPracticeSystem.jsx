@@ -634,8 +634,9 @@ try {
   }
 
   reviewQueue.forEach(appt => {
-    console.log("Send review request to:", appt.patientName);
-  });
+  setReviewPatient(appt);
+  setShowReviewPopup(true);
+});
 
   setAppointments(prev =>
     prev.map(a =>
@@ -1865,6 +1866,55 @@ setShowBookingForm(false);
         );
       })()}
     </div>
+    {showReviewPopup && reviewPatient && (
+  <div style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: "rgba(0,0,0,0.5)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 9999
+  }}>
+    <div style={{
+      background: "white",
+      padding: 30,
+      borderRadius: 12,
+      width: 420,
+      textAlign: "center"
+    }}>
+      <h2>Patient Review</h2>
+
+      <p>
+        Request review from <b>{reviewPatient.patientName}</b>
+      </p>
+
+      <p>How was your experience?</p>
+
+      <button
+        onClick={() => {
+          alert("Positive review → send to Google Reviews");
+          setShowReviewPopup(false);
+        }}
+        style={{ marginRight: 10 }}
+      >
+        😊 Positive
+      </button>
+
+      <button
+        onClick={() => {
+          alert("Negative review → send email to clinic");
+          setShowReviewPopup(false);
+        }}
+      >
+        😞 Negative
+      </button>
+    </div>
+  </div>
+)}
   );
 }
 
