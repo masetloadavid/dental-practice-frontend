@@ -1912,8 +1912,7 @@ setShowBookingForm(false);
         😞 Negative
       </button>
     </div>
-  </div> 
-    </div>   
+  </div>   
 )}
   );
 }
