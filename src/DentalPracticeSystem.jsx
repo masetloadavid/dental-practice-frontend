@@ -1915,6 +1915,7 @@ setShowBookingForm(false);
     </div>
   </div>   
 )}
+  </div>    
   );
 }
 
