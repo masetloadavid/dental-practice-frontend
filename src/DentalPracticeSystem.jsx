@@ -1905,10 +1905,31 @@ setShowBookingForm(false);
       </button>
 
       <button
-        onClick={() => {
-          alert("Negative review → send email to clinic");
-          setShowReviewPopup(false);
-        }}
+        onClick={async () => {
+  try {
+    const response = await fetch(
+      "https://dental-practice-backend-production.up.railway.app/api/reviews/negative",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          patientName: reviewPatient?.patientName,
+          feedback: "Patient selected negative review",
+        }),
+      }
+    );
+
+    const data = await response.json();
+    alert(data.message || "Negative review sent to clinic");
+  } catch (error) {
+    console.error(error);
+    alert("Failed to send negative review");
+  }
+
+  setShowReviewPopup(false);
+}}
       >
         😞 Negative
       </button>
