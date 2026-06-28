@@ -1889,12 +1889,13 @@ setShowBookingForm(false);
     }}>
       <h2>Patient Review</h2>
 
-      <p>
-        Request review from <b>{reviewPatient.patientName}</b>
-      </p>
+<h3>How was your visit today?</h3>
 
-      <p>How was your experience?</p>
+<p>Please rate your experience from 1 to 5 stars.</p>
 
+<p>
+  Patient: <b>{reviewPatient?.patientName}</b>
+</p>
       <button
         onClick={() => {
   setShowReviewPopup(false);
