@@ -1896,45 +1896,53 @@ setShowBookingForm(false);
 <p>
   Patient: <b>{reviewPatient?.patientName}</b>
 </p>
-      <button
-        onClick={() => {
-  setShowReviewPopup(false);
-  setShowGoogleReviewPopup(true);
-}}
-        style={{ marginRight: 10 }}
-      >
-        😊 Positive
-      </button>
+    <div style={{ display: "flex", justifyContent: "center", gap: 12, marginTop: 20 }}>
+  {[1, 2, 3, 4, 5].map((rating) => (
+    <button
+      key={rating}
+      onClick={async () => {
+        if (rating >= 4) {
+          setShowReviewPopup(false);
+          setShowGoogleReviewPopup(true);
+        } else {
+          try {
+            const response = await fetch(
+              "https://dental-practice-backend-production.up.railway.app/api/reviews/negative",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  patientName: reviewPatient?.patientName,
+                  feedback: `Patient rated ${rating}/5`,
+                }),
+              }
+            );
 
-      <button
-        onClick={async () => {
-  try {
-    const response = await fetch(
-      "https://dental-practice-backend-production.up.railway.app/api/reviews/negative",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          patientName: reviewPatient?.patientName,
-          feedback: "Patient selected negative review",
-        }),
-      }
-    );
+            const data = await response.json();
+            alert(data.message || "Review sent to clinic");
+          } catch (error) {
+            console.error(error);
+            alert("Failed to send review");
+          }
 
-    const data = await response.json();
-    alert(data.message || "Negative review sent to clinic");
-  } catch (error) {
-    console.error(error);
-    alert("Failed to send negative review");
-  }
-
-  setShowReviewPopup(false);
-}}
-      >
-        😞 Negative
-      </button>
+          setShowReviewPopup(false);
+        }
+      }}
+      style={{
+        width: 45,
+        height: 45,
+        borderRadius: "50%",
+        border: "1px solid #ccc",
+        fontSize: 18,
+        cursor: "pointer"
+      }}
+    >
+      {rating}
+    </button>
+  ))}
+</div>  
     </div>
   </div>   
 )}
