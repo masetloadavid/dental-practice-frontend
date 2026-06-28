@@ -1896,11 +1896,8 @@ setShowBookingForm(false);
 
       <button
         onClick={() => {
-  window.open(
-    "https://g.page/r/CRpMyTnla-A_EBM/review",
-    "_blank"
-  );
   setShowReviewPopup(false);
+  setShowGoogleReviewPopup(true);
 }}
         style={{ marginRight: 10 }}
       >
