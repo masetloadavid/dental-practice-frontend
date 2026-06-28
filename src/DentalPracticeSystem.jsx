@@ -171,7 +171,7 @@ export default function DentalPracticeSystem() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [patients, setPatients] = useState([]);
   const [appointments, setAppointments] = useState([]);
-  const [showReviewPopup, setShowReviewPopup] = useState(false);
+  const [showGoogleReviewPopup, setShowGoogleReviewPopup] = useState(false);
   const [reviewPatient, setReviewPatient] = useState(null);
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [bookingName, setBookingName] = useState("");
