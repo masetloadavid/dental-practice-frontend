@@ -634,10 +634,26 @@ try {
     return;
   }
 
-  reviewQueue.forEach(appt => {
-  setReviewPatient(appt);
-  setShowReviewPopup(true);
+  reviewQueue.forEach(async (appt) => {
+  const patient = patients.find(p => p.id === appt.patientId);
+
+  if (!patient || !patient.email) {
+    console.log("No email for patient:", appt.patientId);
+    return;
+  }
+
+  await fetch("https://dental-practice-backend-production.up.railway.app/api/reviews/send-request", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      patientName: patient.name,
+      patientEmail: patient.email
+    })
+  });
 });
+
 
   setAppointments(prev =>
     prev.map(a =>
