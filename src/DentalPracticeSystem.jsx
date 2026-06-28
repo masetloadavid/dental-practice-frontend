@@ -1896,9 +1896,12 @@ setShowBookingForm(false);
 
       <button
         onClick={() => {
-          alert("Positive review → send to Google Reviews");
-          setShowReviewPopup(false);
-        }}
+  window.open(
+    "https://g.page/r/CRpMyTnla-A_EBM/review",
+    "_blank"
+  );
+  setShowReviewPopup(false);
+}}
         style={{ marginRight: 10 }}
       >
         😊 Positive
