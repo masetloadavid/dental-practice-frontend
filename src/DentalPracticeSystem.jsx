@@ -1891,7 +1891,11 @@ setShowBookingForm(false);
 
 <h3>How was your visit today?</h3>
 
-<p>Please rate your experience from 1 to 5 stars.</p>
+<p><b>Please click ONE rating</b> that best matches your experience.</p>
+
+<p style={{ fontSize: 14, color: "#666", lineHeight: 1.6 }}>
+  1 = Very Poor • 2 = Poor • 3 = Average • 4 = Good • 5 = Excellent
+</p>
 
 <p>
   Patient: <b>{reviewPatient?.patientName}</b>
@@ -1939,7 +1943,7 @@ setShowBookingForm(false);
         cursor: "pointer"
       }}
     >
-      {rating}
+      <>⭐ {rating}</>
     </button>
   ))}
 </div>  
