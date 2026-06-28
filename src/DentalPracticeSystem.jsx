@@ -1936,6 +1936,43 @@ setShowBookingForm(false);
     </div>
   </div>   
 )}
+
+{showGoogleReviewPopup && (
+  <div style={s.modal}>
+    <div style={{ ...s.modalBox, width: 460, textAlign: "center" }}>
+      <h2>Thank You! ⭐</h2>
+
+      <p>
+        We’re glad you had a great experience at
+        <strong> Love2Smile Dental Suites</strong>.
+      </p>
+
+      <p>Would you like to share your experience on Google?</p>
+
+      <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
+        <button
+          style={{ marginRight: 10 }}
+          onClick={() => {
+            window.open(
+              "https://g.page/r/CRpMyTnla-A_EBM/review",
+              "_blank"
+            );
+            setShowGoogleReviewPopup(false);
+          }}
+        >
+          Leave Google Review
+        </button>
+
+        <button
+          onClick={() => setShowGoogleReviewPopup(false)}
+        >
+          Maybe Later
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+      
   </div>    
   );
 }
