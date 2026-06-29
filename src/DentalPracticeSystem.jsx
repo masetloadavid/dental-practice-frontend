@@ -813,6 +813,54 @@ const handleSavePatientEdit = async () => {
     showNotif("Failed to update patient", "error");
   }
 };
+
+  if (showReviewPopup) {
+  return (
+    <div style={{
+      minHeight: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      background: "#f8fafc",
+      fontFamily: "DM Sans, sans-serif"
+    }}>
+      <div style={{
+        background: "white",
+        padding: 30,
+        borderRadius: 16,
+        boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+        width: 420,
+        textAlign: "center"
+      }}>
+        <h1>How was your visit at Love2Smile? 🦷</h1>
+        <p>Please rate your experience</p>
+
+        <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 20 }}>
+          {[1,2,3,4,5].map(star => (
+            <button
+              key={star}
+              onClick={() => {
+                if (star >= 4) {
+                  window.open("https://g.page/r/CRpMyTnla-A_EBM/review", "_blank");
+                } else {
+                  alert("Thank you for your feedback. We will contact you.");
+                }
+              }}
+              style={{
+                fontSize: 30,
+                border: "none",
+                background: "transparent",
+                cursor: "pointer"
+              }}
+            >
+              ⭐
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
   
   return (
     <div style={s.app}>
