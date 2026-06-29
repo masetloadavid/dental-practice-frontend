@@ -186,6 +186,15 @@ export default function DentalPracticeSystem() {
   const [bookingEmail, setBookingEmail] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [appointmentType, setAppointmentType] = useState("Check-up & Clean");
+
+ useEffect(() => {
+  const path = window.location.pathname;
+
+  if (path === "/review") {
+    setShowReviewPopup(true);
+  }
+}, []); 
+  
   useEffect(() => {
   async function loadData() {
     try {
