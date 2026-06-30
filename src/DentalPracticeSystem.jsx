@@ -916,6 +916,55 @@ setTimeout(() => {
   
   return (
     <div style={s.app}>
+      {showNegativeFeedbackPopup && (
+    <div style={{
+      minHeight: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      background: "#f8fafc",
+      fontFamily: "DM Sans, sans-serif"
+    }}>
+      <div style={{
+        background: "white",
+        padding: 30,
+        borderRadius: 16,
+        boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+        width: 420,
+        textAlign: "center"
+      }}>
+        <h1>Thank You 💙</h1>
+
+        <p>
+          We appreciate your honest feedback.
+        </p>
+
+        <p>
+          We’re sorry your experience did not fully meet expectations.
+          A team member from Love2Smile Dental Suites will contact you
+          to better understand how we can improve our service.
+        </p>
+
+        <button
+          onClick={() => setShowNegativeFeedbackPopup(false)}
+          style={{
+            marginTop: 20,
+            width: "100%",
+            padding: 14,
+            border: "none",
+            borderRadius: 12,
+            background: "#2563eb",
+            color: "white",
+            fontWeight: "bold",
+            fontSize: 16,
+            cursor: "pointer"
+          }}
+        >
+          Close
+        </button>
+      </div>
+    </div>
+      )}
       {notification && (
   <div
     style={{
