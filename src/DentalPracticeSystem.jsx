@@ -186,6 +186,9 @@ export default function DentalPracticeSystem() {
   const [bookingEmail, setBookingEmail] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [appointmentType, setAppointmentType] = useState("Check-up & Clean");
+  const [selectedStars, setSelectedStars] = useState(0);
+  const [reviewText, setReviewText] = useState("");
+  const [showGooglePrompt, setShowGooglePrompt] = useState(false);
 
  useEffect(() => {
   const path = window.location.pathname;
