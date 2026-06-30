@@ -880,7 +880,7 @@ const handleSavePatientEdit = async () => {
       }
 
       if (selectedStars >= 4) {
-        setShowGooglePrompt(true);
+        alert("Button works!");
       } else {
         alert("Thank you for your feedback. We appreciate it.");
       }
