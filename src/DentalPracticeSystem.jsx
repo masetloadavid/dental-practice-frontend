@@ -879,7 +879,7 @@ const handleSavePatientEdit = async () => {
       }
 
       if (selectedStars >= 4) {
-        alert("Button works!");
+        setShowGoogleReviewPopup(true);
       } else {
         alert("Thank you for your feedback. We appreciate it.");
       }
