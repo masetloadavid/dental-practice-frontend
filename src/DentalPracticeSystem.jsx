@@ -878,11 +878,15 @@ const handleSavePatientEdit = async () => {
         return;
       }
 
-      if (selectedStars >= 4) {
-        setShowGoogleReviewPopup(true);
-      } else {
-        alert("Thank you for your feedback. We appreciate it.");
-      }
+     if (selectedStars >= 4) {
+   setShowReviewPopup(false);
+
+   setTimeout(() => {
+      setShowGoogleReviewPopup(true);
+   }, 100);
+} else {
+   alert("Thank you for your feedback. We appreciate it.");
+} 
     }}
     style={{
       marginTop: 20,
