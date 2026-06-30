@@ -885,7 +885,9 @@ const handleSavePatientEdit = async () => {
       setShowGoogleReviewPopup(true);
    }, 100);
 } else {
-   alert("Thank you for your feedback. We appreciate it.");
+   alert(
+  "Thank you for your honest feedback. We’re sorry your experience did not fully meet expectations. Your feedback is important to us, and a team member from Love2Smile Dental Suites will follow up to better understand how we can improve our service."
+);
 } 
     }}
     style={{
