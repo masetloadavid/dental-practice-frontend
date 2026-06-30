@@ -838,28 +838,69 @@ const handleSavePatientEdit = async () => {
         <h1>How was your visit at Love2Smile? 🦷</h1>
         <p>Please rate your experience</p>
 
-        <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 20 }}>
-          {[1,2,3,4,5].map(star => (
-            <button
-              key={star}
-              onClick={() => {
-                if (star >= 4) {
-                  window.open("https://g.page/r/CRpMyTnla-A_EBM/review", "_blank");
-                } else {
-                  alert("Thank you for your feedback. We will contact you.");
-                }
-              }}
-              style={{
-                fontSize: 30,
-                border: "none",
-                background: "transparent",
-                cursor: "pointer"
-              }}
-            >
-              ⭐
-            </button>
-          ))}
-        </div>
+       <div style={{ marginTop: 20 }}>
+  <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 20 }}>
+    {[1,2,3,4,5].map(star => (
+      <span
+        key={star}
+        onClick={() => setSelectedStars(star)}
+        style={{
+          fontSize: 42,
+          cursor: "pointer",
+          color: star <= selectedStars ? "#fbbc04" : "#dadce0",
+          transition: "all 0.2s ease"
+        }}
+      >
+        ★
+      </span>
+    ))}
+  </div>
+
+  <textarea
+    value={reviewText}
+    onChange={(e) => setReviewText(e.target.value)}
+    placeholder="Tell us about your experience..."
+    rows={5}
+    style={{
+      width: "100%",
+      padding: 14,
+      borderRadius: 12,
+      border: "1px solid #dadce0",
+      fontSize: 15,
+      resize: "none",
+      boxSizing: "border-box"
+    }}
+  />
+
+  <button
+    onClick={() => {
+      if (selectedStars === 0) {
+        alert("Please select a rating first.");
+        return;
+      }
+
+      if (selectedStars >= 4) {
+        setShowGooglePrompt(true);
+      } else {
+        alert("Thank you for your feedback. We appreciate it.");
+      }
+    }}
+    style={{
+      marginTop: 20,
+      width: "100%",
+      padding: 14,
+      border: "none",
+      borderRadius: 12,
+      background: "#2563eb",
+      color: "white",
+      fontWeight: "bold",
+      fontSize: 16,
+      cursor: "pointer"
+    }}
+  >
+    Submit Review
+  </button>
+</div> 
       </div>
     </div>
   );
