@@ -188,7 +188,6 @@ export default function DentalPracticeSystem() {
   const [appointmentType, setAppointmentType] = useState("Check-up & Clean");
   const [selectedStars, setSelectedStars] = useState(0);
   const [reviewText, setReviewText] = useState("");
-  const [showGooglePrompt, setShowGooglePrompt] = useState(false);
 
  useEffect(() => {
   const path = window.location.pathname;
@@ -901,79 +900,6 @@ const handleSavePatientEdit = async () => {
     Submit Review
   </button>
 </div> 
-      </div>
-    </div>
-  );
-}
-
-  if (showGooglePrompt) {
-  return (
-    <div style={{
-      minHeight: "100vh",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      background: "#f8fafc",
-      fontFamily: "'DM Sans', sans-serif"
-    }}>
-      <div style={{
-        background: "white",
-        padding: 30,
-        borderRadius: 16,
-        boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
-        width: 450,
-        textAlign: "center"
-      }}>
-        <h2>Thank you for your review! ⭐</h2>
-        <p>
-          We're glad you had a great experience at Love2Smile.
-          Would you like to share this review on Google?
-        </p>
-
-        <textarea
-          value={reviewText}
-          readOnly
-          rows={5}
-          style={{
-            width: "100%",
-            padding: 12,
-            borderRadius: 12,
-            border: "1px solid #dadce0",
-            marginTop: 15
-          }}
-        />
-
-        <button
-          onClick={() => {
-            navigator.clipboard.writeText(reviewText);
-            window.open("https://g.page/r/CRpMyTnla-A_EBM/review", "_blank");
-          }}
-          style={{
-            width: "100%",
-            marginTop: 20,
-            padding: 14,
-            background: "#2563eb",
-            color: "white",
-            border: "none",
-            borderRadius: 12,
-            fontWeight: "bold",
-            cursor: "pointer"
-          }}
-        >
-          Copy Review & Open Google
-        </button>
-
-        <button
-          onClick={() => setShowGooglePrompt(false)}
-          style={{
-            marginTop: 12,
-            background: "transparent",
-            border: "none",
-            cursor: "pointer"
-          }}
-        >
-          No Thanks
-        </button>
       </div>
     </div>
   );
