@@ -976,6 +976,7 @@ setTimeout(() => {
      );
 }  
   return (
+    <>
     <div style={s.app}>
     
       {notification && (
