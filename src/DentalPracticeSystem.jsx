@@ -2154,18 +2154,17 @@ setShowBookingForm(false);
         <button
           style={{ marginRight: 10 }}
           onClick={() => {
-            window.open(
-              "https://g.page/r/CRpMyTnla-A_EBM/review",
-              "_blank"
-            );
-            setShowGoogleReviewPopup(false);
-          }}
+  window.location.href = "https://g.page/r/CRpMyInla-A_EBM/review";
+}}
         >
           Leave Google Review
         </button>
 
         <button
-          onClick={() => setShowGoogleReviewPopup(false)}
+          onClick={() => {
+  window.history.back();
+  setTimeout(() => window.close(), 300);
+}}
         >
           Maybe Later
         </button>
