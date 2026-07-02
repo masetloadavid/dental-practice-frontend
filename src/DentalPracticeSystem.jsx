@@ -2154,7 +2154,12 @@ setShowBookingForm(false);
 )}
 
 {showGoogleReviewPopup && (
-  <div style={s.modal}>
+  <div
+  style={{
+    ...s.modal,
+    zIndex: 9999
+  }}
+>
     <div style={{ ...s.modalBox, width: 460, textAlign: "center" }}>
       <h2>Thank You! ⭐</h2>
 
