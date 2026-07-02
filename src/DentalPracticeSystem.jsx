@@ -2056,17 +2056,17 @@ setShowBookingForm(false);
 
       {showReviewPopup && reviewPatient && (
   <div style={{
-    position: "fixed",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    background: "#ffffff",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 9999
-  }}>
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100vw",
+  height: "100vh",
+  background: "#ffffff",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  zIndex: 99999
+}}>
     <div style={{
       background: "white",
       padding: 30,
