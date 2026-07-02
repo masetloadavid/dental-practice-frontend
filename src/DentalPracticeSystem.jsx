@@ -2173,8 +2173,12 @@ setShowBookingForm(false);
       <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
         <button
           style={{ marginRight: 10 }}
-          onClick={() => {
-  window.location.href = "https://g.page/r/CRpMyInla-A_EBM/review";
+          onClick={(e) => {
+  e.stopPropagation();
+  window.open(
+    "https://g.page/r/CRpMyInla-A_EBM/review",
+    "_blank"
+  );
 }}
         >
           Leave Google Review
