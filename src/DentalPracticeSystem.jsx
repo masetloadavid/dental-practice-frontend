@@ -2185,10 +2185,9 @@ setShowBookingForm(false);
         </button>
 
         <button
-          onClick={() => {
-  window.history.back();
-  setTimeout(() => window.close(), 300);
-}}
+         onClick={() => {
+  setShowGoogleReviewPopup(false);
+}} 
         >
           Maybe Later
         </button>
