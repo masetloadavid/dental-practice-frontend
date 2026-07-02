@@ -977,6 +977,20 @@ setTimeout(() => {
 }  
   return (
     <>
+      {showGoogleReviewPopup && (
+  <div
+    style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100vw",
+      height: "100vh",
+      background: "white",
+      zIndex: 9998
+    }}
+  />
+)}
+      
     <div style={s.app}>
     
       {notification && (
