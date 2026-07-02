@@ -949,7 +949,13 @@ setTimeout(() => {
         </p>
 
         <button
-          onClick={() => setShowNegativeFeedbackPopup(false)}
+          onClick={() => {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.close();
+  }
+}}
           style={{
             marginTop: 20,
             width: "100%",
