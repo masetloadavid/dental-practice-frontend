@@ -986,7 +986,7 @@ setTimeout(() => {
       width: "100vw",
       height: "100vh",
       background: "white",
-      zIndex: 9998
+      zIndex: 9997
     }}
   />
 )}
