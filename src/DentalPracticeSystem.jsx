@@ -2176,9 +2176,9 @@ setShowBookingForm(false);
           onClick={(e) => {
   e.stopPropagation();
   window.open(
-    "https://g.page/r/CRpMyInla-A_EBM/review",
-    "_blank"
-  );
+  "https://g.page/r/CRpMyTnla-A_EBM/review",
+  "_blank"
+);
 }}
         >
           Leave Google Review
