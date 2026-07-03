@@ -2186,8 +2186,25 @@ setShowBookingForm(false);
 
         <button
          onClick={() => {
-  setShowGoogleReviewPopup(false);
-}} 
+  document.body.innerHTML = `
+    <div style="
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:#f8f9fa;
+      text-align:center;
+      padding:20px;
+    ">
+      <div>
+        <h1>Thank You ⭐</h1>
+        <p>You may now close this page.</p>
+      </div>
+    </div>
+  `;
+}}
         >
           Maybe Later
         </button>
