@@ -2198,10 +2198,11 @@ setShowBookingForm(false);
       text-align:center;
       padding:20px;
     ">
-      <div>
-        <h1>Thank You ⭐</h1>
-        <p>You may now close this page.</p>
-      </div>
+     <div>
+  <h1>Thank You ⭐</h1>
+  <p>We appreciate your feedback.</p>
+  <p>Your response helps Love2Smile improve our service.</p>
+</div> 
     </div>
   `;
 }}
