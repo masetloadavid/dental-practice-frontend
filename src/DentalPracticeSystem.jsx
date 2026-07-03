@@ -194,8 +194,18 @@ export default function DentalPracticeSystem() {
   const path = window.location.pathname;
 
   if (path === "/review") {
-    setShowReviewPopup(true);
-  }
+   const params = new URLSearchParams(window.location.search);
+
+   const patientName = params.get("name") || "Unknown Patient";
+   const phone = params.get("phone") || "No phone";
+
+   setReviewPatient({
+      patientName,
+      phone
+   });
+
+   setShowReviewPopup(true);
+}
 }, []); 
   
   useEffect(() => {
