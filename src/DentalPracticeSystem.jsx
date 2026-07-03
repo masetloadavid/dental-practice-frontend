@@ -897,10 +897,12 @@ const handleSavePatientEdit = async () => {
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({
-            patientName: "Unknown Patient",
-            feedback: `Patient rated ${selectedStars}/5`
-          })
+         body: JSON.stringify({
+  patientName: reviewPatient?.patientName || bookingName || "Unknown Patient",
+  phone: reviewPatient?.phone || bookingPhone || "No phone",
+  rating: `${selectedStars}/5`,
+  feedback: reviewText || "No written feedback provided"
+}) 
         }
       );
    } catch (error) {
