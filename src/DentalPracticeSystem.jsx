@@ -885,12 +885,31 @@ const handleSavePatientEdit = async () => {
    setTimeout(() => {
       setShowGoogleReviewPopup(true);
    }, 100);
-} else {
+} 
+     else {
    setShowReviewPopup(false);
 
-setTimeout(() => {
-  setShowNegativeFeedbackPopup(true);
-}, 100);
+   try {
+      await fetch(
+        "https://dental-practice-backend-production.up.railway.app/api/reviews/negative",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            patientName: "Unknown Patient",
+            feedback: `Patient rated ${selectedStars}/5`
+          })
+        }
+      );
+   } catch (error) {
+      console.error(error);
+   }
+
+   setTimeout(() => {
+      setShowNegativeFeedbackPopup(true);
+   }, 100);
 } 
     }}
     style={{
