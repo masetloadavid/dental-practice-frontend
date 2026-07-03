@@ -873,7 +873,7 @@ const handleSavePatientEdit = async () => {
   />
 
   <button
-    onClick={() => {
+    onClick={async () => {
       if (selectedStars === 0) {
         alert("Please select a rating first.");
         return;
