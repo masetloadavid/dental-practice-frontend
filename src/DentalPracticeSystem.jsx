@@ -682,8 +682,6 @@ try {
   });
 });
 
-    alert("BACKEND RESPONDED");
-
   setAppointments(prev =>
     prev.map(a =>
       a.reviewStatus === "ready_to_send"
