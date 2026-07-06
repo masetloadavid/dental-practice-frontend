@@ -651,7 +651,6 @@ try {
 };
 
   const sendReviewRequests = () => {
-    alert("Review Queue Length: " + reviewQueue.length);
     
     console.log("=== SEND REVIEW REQUESTS CLICKED ===");
     console.log("Review Queue:", reviewQueue);
@@ -669,14 +668,6 @@ try {
     console.log("No email for patient:", appt.patientId);
     return;
   }
-
-  alert("Patient Name: " + patient.name);
-
-  alert("Email: " + patient.email);
-
-  alert("Phone: " + patient.phone);
-
-  alert("ABOUT TO CALL BACKEND");
 
   await fetch("https://dental-practice-backend-production.up.railway.app/api/reviews/send-request", {
     method: "POST",
