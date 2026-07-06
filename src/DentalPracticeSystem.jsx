@@ -663,6 +663,8 @@ try {
 
   reviewQueue.forEach(async (appt) => {
   const patient = patients.find(p => p.id === appt.patientId);
+  console.log("PATIENT OBJECT:", patient);
+  console.log("PATIENT PHONE:", patient?.phone);  
 
   if (!patient || !patient.email) {
     console.log("No email for patient:", appt.patientId);
