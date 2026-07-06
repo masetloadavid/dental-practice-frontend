@@ -651,6 +651,11 @@ try {
 };
 
   const sendReviewRequests = () => {
+    
+    console.log("=== SEND REVIEW REQUESTS CLICKED ===");
+    console.log("Review Queue:", reviewQueue);
+    console.log("Patients:", patients);
+    
   if (reviewQueue.length === 0) {
     showNotif("No review requests to send", "info");
     return;
