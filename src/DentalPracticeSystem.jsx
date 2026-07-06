@@ -671,7 +671,8 @@ try {
     },
     body: JSON.stringify({
       patientName: patient.name,
-      patientEmail: patient.email
+      patientEmail: patient.email,
+      patientPhone: patient.phone
     })
   });
 });
