@@ -664,6 +664,9 @@ try {
     return;
   }
 
+  console.log("Patient object:", patient);
+  console.log("Phone being sent:", patient.phone);
+    
   await fetch("https://dental-practice-backend-production.up.railway.app/api/reviews/send-request", {
     method: "POST",
     headers: {
