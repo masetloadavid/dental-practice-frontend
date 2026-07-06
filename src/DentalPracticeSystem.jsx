@@ -651,7 +651,7 @@ try {
 };
 
   const sendReviewRequests = () => {
-    alert("FUNCTION STARTED");
+    alert("Review Queue Length: " + reviewQueue.length);
     
     console.log("=== SEND REVIEW REQUESTS CLICKED ===");
     console.log("Review Queue:", reviewQueue);
