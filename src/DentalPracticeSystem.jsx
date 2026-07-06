@@ -681,7 +681,9 @@ try {
     })
   });
 });
-
+    
+alert("BACKEND RESPONDED");
+    
   setAppointments(prev =>
     prev.map(a =>
       a.reviewStatus === "ready_to_send"
@@ -1453,8 +1455,6 @@ setShowBookingForm(false);
     marginLeft: 8
   }}
   onClick={() => {
-    console.log("BUTTON CLICKED");
-    alert("BUTTON CLICKED");
     sendReviewRequests();
 }}
 >
