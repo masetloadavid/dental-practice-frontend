@@ -1456,7 +1456,11 @@ setShowBookingForm(false);
     ...s.btnPrimary,
     marginLeft: 8
   }}
-  onClick={sendReviewRequests}
+  onClick={() => {
+    console.log("BUTTON CLICKED");
+    alert("BUTTON CLICKED");
+    sendReviewRequests();
+}}
 >
   Send Review Requests
 </button>
