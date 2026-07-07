@@ -918,7 +918,7 @@ const handleSavePatientEdit = async () => {
           },
          body: JSON.stringify({
   patientName: reviewPatient?.patientName || bookingName || "Unknown Patient",
-  phone: reviewPatient?.phone || bookingPhone || "No phone",
+  patientPhone: reviewPatient?.phone || bookingPhone || "No phone",
   rating: `${selectedStars}/5`,
   feedback: reviewText || "No written feedback provided"
 }) 
