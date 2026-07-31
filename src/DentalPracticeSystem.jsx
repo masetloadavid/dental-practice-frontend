@@ -307,6 +307,22 @@ setAppointments(mappedAppointments);
   return await response.json();
 };
 
+const runReviews = async () => {
+const response = await fetch(
+"https://dental-practice-backend-production.up.railway.app/api/reviews/run",
+{
+method: "POST",
+headers: { "Content-Type": "application/json" }
+}
+);
+
+if (!response.ok) {
+throw new Error("Failed to run reviews");
+}
+
+return await response.json();
+};
+  
   // ── REMINDER ENGINE ──────────────────────────────────────────────────────
   const checkAndSendReminders = async () => {
   try {
