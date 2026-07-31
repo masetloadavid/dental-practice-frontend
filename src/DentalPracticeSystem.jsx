@@ -1121,9 +1121,29 @@ const handleSavePatientEdit = async () => {
                   {new Date().toLocaleDateString("en-ZA", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
                 </p>
               </div>
-              <button style={{ ...s.btn, ...s.btnSuccess }} onClick={checkAndSendReminders}>
-                <RefreshCw size={14} /> Run Reminders
-              </button>
+              <>
+<button
+style={{ ...s.btn, ...s.btnSuccess }}
+onClick={checkAndSendReminders}
+>
+<RefreshCw size={14} /> Run Reminders
+</button>
+
+<button
+style={{ ...s.btn, marginLeft: 10 }}
+onClick={async () => {
+try {
+const result = await runReviews();
+alert(JSON.stringify(result, null, 2));
+console.log(result);
+} catch (err) {
+alert(err.message);
+}
+}}
+>
+Run Reviews
+</button>
+</>
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 24 }}>
