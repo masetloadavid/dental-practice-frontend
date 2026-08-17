@@ -281,6 +281,39 @@ setAppointments(mappedAppointments);
   const [newPatient, setNewPatient] = useState({
     name: "", phone: "", email: "", dob: "", whatsappOptIn: false, notes: ""
   });
+  const [reviewMetrics, setReviewMetrics] = useState({
+totalReviews: 0,
+averageRating: 0,
+fiveStarReviews: 0,
+fourStarReviews: 0,
+threeStarReviews: 0,
+twoStarReviews: 0,
+oneStarReviews: 0,
+pendingRequests: 0,
+sentToday: 0
+});
+
+useEffect(() => {
+const loadReviewMetrics = async () => {
+try {
+const response = await fetch(
+"https://dental-practice-backend-production.up.railway.app/api/reviews/dashboard"
+);
+
+if (!response.ok) {
+throw new Error("Failed to load review metrics");
+}
+
+const data = await response.json();
+
+setReviewMetrics(data);
+} catch (error) {
+console.error("Error loading review metrics:", error);
+}
+};
+
+loadReviewMetrics();
+}, []);
 
   useEffect(() => {
     if (notification) {
@@ -935,7 +968,7 @@ const handleSavePatientEdit = async () => {
          body: JSON.stringify({
   patientName: reviewPatient?.patientName || bookingName || "Unknown Patient",
   patientPhone: reviewPatient?.phone || bookingPhone || "No phone",
-  rating: `${selectedStars}/5`,
+  rating: selectedStars,
   feedback: reviewText || "No written feedback provided"
 }) 
         }
@@ -1085,6 +1118,7 @@ const handleSavePatientEdit = async () => {
             { id: "reminders", icon: <Bell size={16} />, label: "Reminders" },
             { id: "onlineBooking", icon: <CalendarCheck size={16} />, label: "Online Booking" },
             { id: "metrics", icon: <TrendingUp size={16} />, label: "Analytics" },
+            { id: "reviews", icon: <TrendingUp size={16} />, label: "Google Reviews" },
           ].map(item => (
             <div key={item.id} style={s.navItem(activeTab === item.id)} onClick={() => setActiveTab(item.id)}>
               {item.icon} {item.label}
@@ -1769,7 +1803,9 @@ setShowBookingForm(false);
         {/* ANALYTICS */}
         {activeTab === "metrics" && (
           <div>
-            <h1 style={{ ...s.h1, marginBottom: 24 }}>Practice Analytics</h1>
+            <h1 style={{ ...s.h1, marginBottom: 24 }}>
+Analytics Dashboard
+</h1>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 24 }}>
               {[
                 { label: "Total Appointments", value: metrics.total, delta: "+12%" },
@@ -1856,6 +1892,111 @@ setShowBookingForm(false);
             </div>
           </div>
         )}
+        {/* GOOGLE REVIEWS */}
+{activeTab === "reviews" && (
+<div>
+<div style={s.header}>
+<h1 style={s.h1}>Google Reviews Dashboard</h1>
+<p>Monitor your Google review performance and patient feedback.</p>
+</div>
+
+<div
+style={{
+display: "grid",
+gridTemplateColumns: "repeat(3, 1fr)",
+gap: 16,
+marginBottom: 24
+}}
+>
+<div style={s.card}>
+<div style={{ fontSize: 14, color: "#64748b", marginBottom: 8 }}>
+Total Reviews
+</div>
+<div style={{ fontSize: 30, fontWeight: 700 }}>
+{reviewMetrics.totalReviews}
+</div>
+</div>
+
+<div style={s.card}>
+<div style={{ fontSize: 14, color: "#64748b", marginBottom: 8 }}>
+Average Rating
+</div>
+<div style={{ fontSize: 30, fontWeight: 700 }}>
+{reviewMetrics.averageRating}
+<span style={{ fontSize: 20, marginLeft: 6 }}>★</span>
+</div>
+</div>
+
+<div style={s.card}>
+<div style={{ fontSize: 14, color: "#64748b", marginBottom: 8 }}>
+5-Star Reviews
+</div>
+<div style={{ fontSize: 30, fontWeight: 700 }}>
+{reviewMetrics.fiveStarReviews}
+</div>
+</div>
+
+<div style={s.card}>
+<div style={{ fontSize: 14, color: "#64748b", marginBottom: 8 }}>
+4-Star Reviews
+</div>
+<div style={{ fontSize: 30, fontWeight: 700 }}>
+{reviewMetrics.fourStarReviews}
+</div>
+</div>
+
+<div style={s.card}>
+<div style={{ fontSize: 14, color: "#64748b", marginBottom: 8 }}>
+3-Star Reviews
+</div>
+<div style={{ fontSize: 30, fontWeight: 700 }}>
+{reviewMetrics.threeStarReviews}
+</div>
+</div>
+
+<div style={s.card}>
+<div style={{ fontSize: 14, color: "#64748b", marginBottom: 8 }}>
+Pending Requests
+</div>
+<div style={{ fontSize: 30, fontWeight: 700 }}>
+{reviewMetrics.pendingRequests}
+</div>
+</div>
+</div>
+
+<div style={s.card}>
+<h2 style={{ marginTop: 0, marginBottom: 16 }}>
+Review Request Activity
+</h2>
+
+<div
+style={{
+display: "grid",
+gridTemplateColumns: "repeat(2, 1fr)",
+gap: 16
+}}
+>
+<div>
+<div style={{ fontSize: 14, color: "#64748b" }}>
+Requests Sent Today
+</div>
+<div style={{ fontSize: 24, fontWeight: 700 }}>
+{reviewMetrics.sentToday}
+</div>
+</div>
+
+<div>
+<div style={{ fontSize: 14, color: "#64748b" }}>
+Pending Requests
+</div>
+<div style={{ fontSize: 24, fontWeight: 700 }}>
+{reviewMetrics.pendingRequests}
+</div>
+</div>
+</div>
+</div>
+</div>
+)}
       </main>
 
       {/* ADD APPOINTMENT MODAL */}
@@ -2198,9 +2339,10 @@ setShowBookingForm(false);
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  patientName: reviewPatient?.patientName,
-                  feedback: `Patient rated ${rating}/5`,
-                }),
+                    patientName: reviewPatient?.patientName,
+                    rating: selectedStars,
+                    feedback: `Patient rated ${selectedStars}/5`,
+                    }),
               }
             );
 
