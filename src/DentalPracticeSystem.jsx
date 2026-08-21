@@ -1956,6 +1956,24 @@ Average Rating
 
 <div style={s.card}>
 <div style={{ fontSize: 14, color: "#64748b", marginBottom: 8 }}>
+2-Star Reviews
+</div>
+<div style={{ fontSize: 30, fontWeight: 700 }}>
+{reviewMetrics.twoStarReviews}
+</div>
+</div>
+
+<div style={s.card}>
+<div style={{ fontSize: 14, color: "#64748b", marginBottom: 8 }}>
+1-Star Reviews
+</div>
+<div style={{ fontSize: 30, fontWeight: 700 }}>
+{reviewMetrics.oneStarReviews}
+</div>
+</div>
+
+<div style={s.card}>
+<div style={{ fontSize: 14, color: "#64748b", marginBottom: 8 }}>
 Pending Requests
 </div>
 <div style={{ fontSize: 30, fontWeight: 700 }}>
@@ -2327,9 +2345,38 @@ Pending Requests
       key={rating}
       onClick={async () => {
         if (rating >= 4) {
-          setShowReviewPopup(false);
-          setShowGoogleReviewPopup(true);
-        } else {
+try {
+const response = await fetch(
+"https://dental-practice-backend-production.up.railway.app/api/reviews/positive",
+{
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+patientName: reviewPatient?.patientName,
+patientPhone: reviewPatient?.phone,
+rating: rating,
+feedback: `Patient rated ${rating}/5`
+})
+}
+);
+
+if (!response.ok) {
+throw new Error("Failed to save positive review");
+}
+
+const data = await response.json();
+console.log("Positive review saved:", data);
+
+setShowReviewPopup(false);
+setShowGoogleReviewPopup(true);
+
+} catch (error) {
+console.error("Error saving positive review:", error);
+alert("There was a problem saving the review. Please try again.");
+}
+} else {
           try {
             const response = await fetch(
               "https://dental-practice-backend-production.up.railway.app/api/reviews/negative",
