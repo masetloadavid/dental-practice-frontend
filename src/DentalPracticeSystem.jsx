@@ -275,7 +275,7 @@ setAppointments(mappedAppointments);
   const [patientSearch, setPatientSearch] = useState("");
   const [notification, setNotification] = useState(null);
   const [newAppointment, setNewAppointment] = useState({
-    patientId: "", date: fmt(new Date()), time: "09:00",
+    patientId: "", branch: "", dentist_slot: 1, date: fmt(new Date()), time: "09:00",
     duration: 60, type: "Check-up & Clean", status: "confirmed"
   });
   const [newPatient, setNewPatient] = useState({
@@ -533,14 +533,27 @@ try {
           appointment_time: newAppointment.time,
           duration: newAppointment.duration,
           type: newAppointment.type,
-          status: newAppointment.status
+          status: newAppointment.status,
+          branch: newAppointment.branch,
+          dentist_slot: newAppointment.dentist_slot
         }),
       }
     );
 
-    const saved = await response.json();
+    if (!response.ok) {
+const errorData = await response.json().catch(() => ({}));
 
-    const appt = {
+showNotif(
+errorData.error || "Failed to save appointment.",
+"error"
+);
+
+return;
+}
+
+const saved = await response.json();
+
+const appt = {
       id: saved.id || generateId(),
       patientId: saved.patient_id || newAppointment.patientId,
       patientName: patient?.name || "",
@@ -549,6 +562,8 @@ try {
       duration: saved.duration || newAppointment.duration,
       type: saved.type || newAppointment.type,
       status: saved.status || newAppointment.status,
+      branch: saved.branch || newAppointment.branch,
+      dentistSlot: saved.dentist_slot || newAppointment.dentistSlot,
       remindersSent: {
         week: false,
         day: false,
@@ -568,7 +583,9 @@ try {
       time: "09:00",
       duration: 60,
       type: "Check-up & Clean",
-      status: "confirmed"
+      status: "confirmed",
+      branch: "",
+      dentist_slot: 1
     });
 
     showNotif(`Appointment booked for ${patient?.name}!`);
@@ -948,12 +965,49 @@ const handleSavePatientEdit = async () => {
       }
 
      if (selectedStars >= 4) {
-   setShowReviewPopup(false);
+try {
+const response = await fetch(
+"https://dental-practice-backend-production.up.railway.app/api/reviews/positive",
+{
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+patientName:
+reviewPatient?.patientName ||
+bookingName ||
+"Unknown Patient",
 
-   setTimeout(() => {
-      setShowGoogleReviewPopup(true);
-   }, 100);
-} 
+patientPhone:
+reviewPatient?.phone ||
+bookingPhone ||
+"No phone",
+
+rating: selectedStars,
+
+feedback:
+reviewText ||
+"No written feedback provided"
+})
+}
+);
+
+if (!response.ok) {
+throw new Error("Failed to save positive review");
+}
+
+setShowReviewPopup(false);
+
+setTimeout(() => {
+setShowGoogleReviewPopup(true);
+}, 100);
+
+} catch (error) {
+console.error("Error saving positive review:", error);
+alert("We could not save your review. Please try again.");
+}
+}
      else {
    setShowReviewPopup(false);
 
@@ -2075,6 +2129,62 @@ Pending Requests
 ></textarea>
   </div>
 )}
+
+<div style={{ gridColumn: "1 / -1" }}>
+<label style={s.label}>Branch *</label>
+
+<select
+style={s.input}
+value={newAppointment.branch}
+onChange={(e) =>
+setNewAppointment(a => ({
+...a,
+branch: e.target.value,
+dentist_slot: 1
+}))
+}
+>
+<option value="">Select branch...</option>
+<option value="Love2Smile With Braces">
+Love2Smile With Braces
+</option>
+<option value="Love2Smile at Reitz">
+Love2Smile at Reitz
+</option>
+<option value="Love2Smile Cullinan">
+Love2Smile Cullinan
+</option>
+</select>
+</div>
+
+<div>
+<label style={s.label}>Dentist *</label>
+
+<select
+style={s.input}
+value={newAppointment.dentist_slot}
+onChange={(e) =>
+setNewAppointment(a => ({
+...a,
+dentist_slot: Number(e.target.value)
+}))
+}
+>
+{newAppointment.branch === "Love2Smile at Reitz" ? (
+<>
+<option value={1}>Dr Ramosobela</option>
+<option value={2}>Dr Kekana</option>
+</>
+) : newAppointment.branch === "Love2Smile Cullinan" ? (
+<option value={1}>Dr Lobeko</option>
+) : newAppointment.branch === "Love2Smile With Braces" ? (
+<option value={1}>Dentist 1</option>
+) : (
+<option value={1}>Select branch first</option>
+)}
+</select>
+</div>
+
               <div>
                 <label style={s.label}>Date *</label>
                 <input type="date" style={s.input} value={newAppointment.date} onChange={e => setNewAppointment(a => ({ ...a, date: e.target.value }))} />
