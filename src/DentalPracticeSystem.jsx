@@ -167,7 +167,7 @@ const simulateSendWhatsApp = async (phone, message) => {
 };
 
 // ─── MAIN APP COMPONENT ───────────────────────────────────────────────────────
-export default function DentalPracticeSystem() {
+export default function DentalPracticeSystem({ user }) {
   const [authUser, setAuthUser] = useState(() => {
     try {
       const savedUser = localStorage.getItem("love2smile_auth_user");
@@ -175,10 +175,6 @@ export default function DentalPracticeSystem() {
     } catch {
       return null;
     }
-  });
-
-  const [authToken, setAuthToken] = useState(() => {
-    return localStorage.getItem("love2smile_auth_token") || "";
   });
 
   const [loginUsername, setLoginUsername] = useState("");
@@ -217,7 +213,6 @@ export default function DentalPracticeSystem() {
         JSON.stringify(data.user)
       );
 
-      setAuthToken(data.token);
       setAuthUser(data.user);
 
       setLoginPassword("");
@@ -229,6 +224,15 @@ export default function DentalPracticeSystem() {
       setLoginLoading(false);
     }
   };
+
+const handleLogout = () => {
+  localStorage.removeItem("love2smile_auth_token");
+  localStorage.removeItem("love2smile_auth_user");
+
+  setAuthUser(null);
+  setAuthToken("");
+};
+
   const [patients, setPatients] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [showGoogleReviewPopup, setShowGoogleReviewPopup] = useState(false);
@@ -1178,150 +1182,7 @@ alert("We could not save your review. Please try again.");
     </div>
      );
 }  
-if (!authUser) {
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background: "#f8fafc",
-        fontFamily: "DM Sans, sans-serif",
-        padding: 20
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: 420,
-          background: "white",
-          padding: 32,
-          borderRadius: 16,
-          boxShadow: "0 10px 30px rgba(0,0,0,0.08)"
-        }}
-      >
-        <div style={{ textAlign: "center", marginBottom: 28 }}>
-          <h1
-            style={{
-              margin: 0,
-              color: "#2563eb",
-              fontSize: 28
-            }}
-          >
-            Love2Smile Dental Suites
-          </h1>
 
-          <p
-            style={{
-              marginTop: 8,
-              color: "#64748b",
-              fontSize: 14
-            }}
-          >
-            Dental Practice Management System
-          </p>
-        </div>
-
-        <form onSubmit={handleLogin}>
-          <div style={{ marginBottom: 16 }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: 6,
-                fontWeight: 600,
-                color: "#374151"
-              }}
-            >
-              Username
-            </label>
-
-            <input
-              type="text"
-              value={loginUsername}
-              onChange={(e) => setLoginUsername(e.target.value)}
-              placeholder="Enter username"
-              autoComplete="username"
-              required
-              style={{
-                width: "100%",
-                boxSizing: "border-box",
-                padding: "12px 14px",
-                border: "1px solid #cbd5e1",
-                borderRadius: 10,
-                fontSize: 15
-              }}
-            />
-          </div>
-
-          <div style={{ marginBottom: 18 }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: 6,
-                fontWeight: 600,
-                color: "#374151"
-              }}
-            >
-              Password
-            </label>
-
-            <input
-              type="password"
-              value={loginPassword}
-              onChange={(e) => setLoginPassword(e.target.value)}
-              placeholder="Enter password"
-              autoComplete="current-password"
-              required
-              style={{
-                width: "100%",
-                boxSizing: "border-box",
-                padding: "12px 14px",
-                border: "1px solid #cbd5e1",
-                borderRadius: 10,
-                fontSize: 15
-              }}
-            />
-          </div>
-
-          {loginError && (
-            <div
-              style={{
-                marginBottom: 16,
-                padding: 12,
-                borderRadius: 10,
-                background: "#fef2f2",
-                color: "#b91c1c",
-                fontSize: 14
-              }}
-            >
-              {loginError}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={loginLoading}
-            style={{
-              width: "100%",
-              padding: "13px 16px",
-              border: "none",
-              borderRadius: 10,
-              background: "#2563eb",
-              color: "white",
-              fontWeight: 700,
-              fontSize: 16,
-              cursor: loginLoading ? "not-allowed" : "pointer",
-              opacity: loginLoading ? 0.7 : 1
-            }}
-          >
-            {loginLoading ? "Signing in..." : "Sign In"}
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-} 
 return (
     <>
       {showGoogleReviewPopup && (
@@ -1384,7 +1245,24 @@ return (
           ))}
         </nav>
         <div style={{ padding: "16px 20px", borderTop: "1px solid #1e293b" }}>
-          <div style={{ fontSize: 11, color: "#475569" }}>v1.0.0 — SmileCare HMS</div>
+        <div style={{ fontSize: 11, color: "#475569" }}>v1.0.0 — SmileCare HMS</div>
+        <button
+  onClick={handleLogout}
+  style={{
+    width: "100%",
+    marginTop: 12,
+    padding: "10px 12px",
+    border: "none",
+    borderRadius: 8,
+    background: "#dc2626",
+    color: "#fff",
+    fontSize: 13,
+    fontWeight: 600,
+    cursor: "pointer"
+  }}
+>
+  Logout
+</button>
         </div>
       </aside>
 
