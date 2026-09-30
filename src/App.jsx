@@ -34,7 +34,7 @@ function App() {
     return <Login onLogin={handleLogin} />;
   }
 
-  return <DentalPracticeSystem user={user} />;
+  return <DentalPracticeSystem user={user} onLogout={handleLogout} />;
 }
 
 createRoot(document.getElementById("root")).render(

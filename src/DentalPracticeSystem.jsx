@@ -167,7 +167,7 @@ const simulateSendWhatsApp = async (phone, message) => {
 };
 
 // ─── MAIN APP COMPONENT ───────────────────────────────────────────────────────
-export default function DentalPracticeSystem({ user }) {
+export default function DentalPracticeSystem({ user, onLogout }) {
   const [authUser, setAuthUser] = useState(() => {
     try {
       const savedUser = localStorage.getItem("love2smile_auth_user");
@@ -1247,7 +1247,7 @@ return (
         <div style={{ padding: "16px 20px", borderTop: "1px solid #1e293b" }}>
         <div style={{ fontSize: 11, color: "#475569" }}>v1.0.0 — SmileCare HMS</div>
         <button
-  onClick={handleLogout}
+  onClick={onLogout}
   style={{
     width: "100%",
     marginTop: 12,
