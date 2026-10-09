@@ -588,9 +588,12 @@ try {
       "https://dental-practice-backend-production.up.railway.app/api/appointments",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        
+headers: {
+  "Content-Type": "application/json",
+  "Authorization": `Bearer ${localStorage.getItem("love2smile_auth_token")}`,
+},
+
         body: JSON.stringify({
           patient_id: finalPatientId,
           appointment_date: newAppointment.date,
