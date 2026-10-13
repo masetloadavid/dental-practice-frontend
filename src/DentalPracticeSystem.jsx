@@ -591,7 +591,7 @@ try {
         
 headers: {
   "Content-Type": "application/json",
-  "Authorization": `Bearer ${localStorage.getItem("love2smile_auth_token")}`,
+  "Authorization": `Bearer ${sessionStorage.getItem("dental_auth_token")}`,
 },
 
         body: JSON.stringify({
